@@ -11,4 +11,4 @@ const userState = atom({
   default: [],
 });
 
-export default { userState };
+export default userState;
