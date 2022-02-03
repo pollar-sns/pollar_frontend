@@ -10,9 +10,6 @@ import AuthSocial from '../components/login/AuthSocial';
 import RegisterForm from '../components/signup/RegisterForm';
 import MobileHidden from '../components/common/MobileHidden';
 import SelectInterests from '../components/signup/SelectInterests';
-// import { MHidden } from '../components/@material-extend';
-// import { RegisterForm } from '../components/authentication/register';
-// import AuthSocial from '../components/authentication/AuthSocial';
 
 // ----------------------------------------------------------------------
 

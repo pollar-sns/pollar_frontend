@@ -1,3 +1,9 @@
+import PollItem from '../components/polls/PollItem';
+
 export default function PollsPage() {
-  return <></>;
+  return (
+    <>
+      <PollItem />
+    </>
+  );
 }

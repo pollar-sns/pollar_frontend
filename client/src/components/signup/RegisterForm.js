@@ -18,18 +18,16 @@ import {
   Radio,
   getTouchRippleUtilityClass,
 } from '@mui/material';
-// import AdapterDateFns from '@mui/lab/AdapterDateFns';
-// import LocalizationProvider from '@mui/lab/LocalizationProvider';
-// import DatePicker from '@mui/lab/DatePicker';
 import { LoadingButton } from '@mui/lab';
+import { signup } from '../../services/api/AuthApi';
 
 // ----------------------------------------------------------------------
 
 export default function RegisterForm() {
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
-  const [birthday, setBirthday] = useState(null);
-  const [gender, setGender] = useState(getTouchRippleUtilityClass);
+  // const [birthday, setBirthday] = useState(null);
+  // const [gender, setGender] = useState(getTouchRippleUtilityClass);
 
   const RegisterSchema = Yup.object().shape({
     userId: Yup.string()
@@ -60,14 +58,22 @@ export default function RegisterForm() {
       categories: [],
     },
     validationSchema: RegisterSchema,
-    onSubmit: () => {
-      // todo API 요청
-      console.log('sdkj');
-      navigate('/', { replace: true });
+    onSubmit: async () => {
+      await handleSignup(values);
+      // navigate('/', { replace: true });
     },
   });
 
-  const { errors, touched, handleSubmit, isSubmitting, getFieldProps } = formik;
+  const { errors, touched, values, handleSubmit, isSubmitting, getFieldProps } = formik;
+
+  const handleSignup = async (signupInfo) => {
+    try {
+      const result = await signup(signupInfo);
+      console.log(result);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <FormikProvider value={formik}>
@@ -81,6 +87,8 @@ export default function RegisterForm() {
               {...getFieldProps('userId')}
               error={Boolean(touched.userId && errors.userId)}
               helperText={touched.userId && errors.userId}
+              value={formik.values.userId}
+              onChange={formik.handleChange}
             />
 
             <TextField
@@ -90,6 +98,8 @@ export default function RegisterForm() {
               {...getFieldProps('userNickname')}
               error={Boolean(touched.userNickname && errors.userNickname)}
               helperText={touched.userNickname && errors.userNickname}
+              value={formik.values.userNickname}
+              onChange={formik.handleChange}
             />
           </Stack>
 
@@ -102,6 +112,8 @@ export default function RegisterForm() {
             {...getFieldProps('userEmail')}
             error={Boolean(touched.userEmail && errors.userEmail)}
             helperText={touched.userEmail && errors.userEmail}
+            value={formik.values.userEmail}
+            onChange={formik.handleChange}
           />
 
           <TextField
@@ -122,6 +134,8 @@ export default function RegisterForm() {
             }}
             error={Boolean(touched.password && errors.password)}
             helperText={touched.password && errors.password}
+            value={formik.values.password}
+            onChange={formik.handleChange}
           />
           <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2}>
             <TextField
@@ -134,9 +148,11 @@ export default function RegisterForm() {
               InputLabelProps={{
                 shrink: true,
               }}
-              onChange={(date) => {
-                setBirthday(date.target.value);
-              }}
+              // onChange={(date) => {
+              //   setBirthday(date.target.value);
+              // }}
+              value={formik.values.userBirthday}
+              onChange={formik.handleChange}
             />
             <FormLabel id="gender-radio-group">Gender</FormLabel>
             <RadioGroup
@@ -145,10 +161,12 @@ export default function RegisterForm() {
               name="row-radio-buttons-group"
               // defaultValue=
               {...getFieldProps('userSex')}
-              value={gender}
-              onChange={(gender) => {
-                setGender(gender.target.value);
-              }}
+              // value={gender}
+              // onChange={(gender) => {
+              //   setGender(gender.target.value);
+              // }}
+              value={formik.values.userSex}
+              onChange={formik.handleChange}
             >
               <FormControlLabel value={true} control={<Radio />} label="Female" />
               <FormControlLabel value={false} control={<Radio />} label="Male" />

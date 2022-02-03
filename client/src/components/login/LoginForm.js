@@ -17,7 +17,9 @@ import {
 } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
 // api
-import login from '../../services/api/AuthApi';
+import { login } from '../../services/api/AuthApi';
+import { useSetRecoilState } from 'recoil';
+import { loggedUserState } from '../../atoms/atoms';
 
 // ----------------------------------------------------------------------
 
@@ -25,8 +27,7 @@ export default function LoginForm() {
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
 
-  const [userId, setUserId] = useState('');
-  const [password, setPassword] = useState('');
+  const setLoggedUserState = useSetRecoilState(loggedUserState);
 
   const LoginSchema = Yup.object().shape({
     userId: Yup.string().required('Username is required'),
@@ -43,7 +44,7 @@ export default function LoginForm() {
     onSubmit: async () => {
       // alert(JSON.stringify(values, null, 2));
       // await login(values);
-      handleLogin(values);
+      await handleLogin(values);
       // navigate('/', { replace: true });
     },
   });
@@ -55,21 +56,24 @@ export default function LoginForm() {
   };
 
   const handleLogin = async (loginInfo) => {
-    // e.preventDefault();
-
     try {
-      const result = login(loginInfo);
-      // 실패는 "fail"
+      const result = await login(loginInfo);
+      console.log(result);
       if (result.message == 'success') {
-        // navigate로 보내기 전에 atom에 userId 저장
-        // setUserIdState(userId);
-        navigate('/');
+        // 로그인 성공한 userId와, response로 온 userNickname을 atom에 저장
+        setLoggedUserState({
+          userId: loginInfo.userId,
+          userNickname: result.userNickname,
+        });
+        //// navigate('/');
+        navigate('/', { replace: true });
       } else {
-        console.log('sldkfj');
-        // setMessage('로그인에 실패하였습니다.');
+        // todo 에러처리들
+        alert('로그인에 실패하였습니다');
       }
     } catch (error) {
-      // setMessage('로그인에 실패하였습니다.');
+      // todo 에러처리들
+      alert('로그인에 실패하였습니다');
     }
   };
 
