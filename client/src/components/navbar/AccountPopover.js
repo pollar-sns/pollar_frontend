@@ -20,6 +20,10 @@ import {
 import MenuPopover from '../../components/MenuPopover';
 //
 import account from '../../_mocks_/account';
+// Recoil
+import { useResetRecoilState } from 'recoil';
+import { loggedUserState } from '../../atoms/atoms';
+import { logout } from '../../services/api/AuthApi';
 
 // ----------------------------------------------------------------------
 
@@ -32,12 +36,12 @@ const MENU_OPTIONS = [
   {
     label: 'Profile',
     icon: personFill,
-    linkTo: '#',
+    linkTo: '/profile',
   },
   {
     label: 'Settings',
     icon: settings2Fill,
-    linkTo: '#',
+    linkTo: '/settings',
   },
 ];
 
@@ -76,11 +80,22 @@ export default function AccountPopover() {
   const anchorRef = useRef(null);
   const [open, setOpen] = useState(false);
 
+  // 로그아웃 시 Recoil atom 초기화
+  const resetLoggedUser = useResetRecoilState(loggedUserState);
+
   const handleOpen = () => {
     setOpen(true);
   };
   const handleClose = () => {
     setOpen(false);
+  };
+
+  // 로그아웃 버튼 클릭 시
+  const handleLogout = () => {
+    // update Recoil atom data
+    resetLoggedUser();
+    // remove JWT
+    logout();
   };
 
   return (
@@ -154,7 +169,7 @@ export default function AccountPopover() {
         ))}
 
         <Box sx={{ p: 2, pt: 1.5 }}>
-          <Button fullWidth color="inherit" variant="outlined">
+          <Button fullWidth color="inherit" variant="outlined" onClick={handleLogout}>
             Logout
           </Button>
         </Box>

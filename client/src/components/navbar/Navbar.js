@@ -11,16 +11,17 @@ import Searchbar from './Searchbar';
 import AccountPopover from './AccountPopover';
 import LanguagePopover from './LanguagePopover';
 import NotificationsPopover from './NotificationsPopover';
-
+// recoil
 import { useRecoilState } from 'recoil';
-import userState from '../../atoms/atoms';
+import { loggedUserState } from '../../atoms/atoms';
+
 import NavbarMenu from './NavbarMenu';
 import { NavLogo } from './Logo';
 
 import sidebarConfig from './SidebarConfig';
 import NavSection from './NavSection';
 import { Link } from 'react-router-dom';
-// import Typography from '../../assets/theme/overrides/Typography';
+
 // ----------------------------------------------------------------------
 
 const DRAWER_WIDTH = 280;
@@ -52,7 +53,7 @@ Navbar.propTypes = {
 };
 
 export default function Navbar({ onOpenSidebar }) {
-  const [loggedUser, setLoggedUser] = useRecoilState(userState);
+  const [loggedUser, setLoggedUser] = useRecoilState(loggedUserState);
   console.log(loggedUser);
   return (
     <RootStyle>
