@@ -29,9 +29,11 @@ const SectionStyle = styled(Card)(({ theme }) => ({
 
 const ContentStyle = styled('div')(({ theme }) => ({
   maxWidth: 480,
+  maxHeight: '100%',
   margin: 'auto',
   display: 'flex',
   minHeight: '100vh',
+
   flexDirection: 'column',
   justifyContent: 'center',
   padding: theme.spacing(12, 0),

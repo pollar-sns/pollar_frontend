@@ -26,8 +26,6 @@ import { signup } from '../../services/api/AuthApi';
 export default function RegisterForm() {
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
-  // const [birthday, setBirthday] = useState(null);
-  // const [gender, setGender] = useState(getTouchRippleUtilityClass);
 
   const RegisterSchema = Yup.object().shape({
     userId: Yup.string()

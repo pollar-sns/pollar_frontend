@@ -30,14 +30,14 @@ export default function Router() {
         { path: 'following', element: <TrendingPage /> },
       ],
     },
-    {
-      path: '/login',
-      element: <LoginPage />,
-    },
-    {
-      path: '/signup',
-      element: <SignupPage />,
-    },
+    // {
+    //   path: '/login',
+    //   element: <LoginPage />,
+    // },
+    // {
+    //   path: '/signup',
+    //   element: <SignupPage />,
+    // },
     {
       path: '/trending',
       element: <TrendingPage />,
