@@ -84,7 +84,7 @@ export default function Navbar({ onOpenSidebar }) {
                     Pollar
                   </Typography>
                 </NavLogo>
-                <NavSection navConfig={sidebarConfig} />
+                <NavSection navConfig={sidebarConfig} mr={10} />
 
                 <Searchbar />
                 <Box sx={{ flexGrow: 1 }} />
