@@ -32,11 +32,11 @@ const ContentStyle = styled('div')(({ theme }) => ({
   maxHeight: '100%',
   margin: 'auto',
   display: 'flex',
-  minHeight: '100vh',
-
+  // 스크롤 방지
+  padding: theme.spacing(8, 0),
+  minHeight: '100%',
   flexDirection: 'column',
   justifyContent: 'center',
-  padding: theme.spacing(12, 0),
 }));
 
 // ----------------------------------------------------------------------
@@ -55,26 +55,33 @@ export default function Login() {
         </MobileHidden> */}
         <Container maxWidth="sm">
           <ContentStyle>
-            <Stack sx={{ mb: 5 }}>
-              <Typography variant="h3" gutterBottom color="primary">
-                Login
-              </Typography>
-              <Typography sx={{ color: 'text.secondary' }}>Enter your details below.</Typography>
-            </Stack>
-            <AuthSocial />
-            <LoginForm />
-            <MobileHidden width="smUp">
+            <Card
+              sx={{
+                px: 8,
+                py: 10,
+                backgroundColor: '#fffb',
+                backdropFilter: 'saturate(200%) blur(30px)',
+                boxShadow: '2px 2px 20px 10px rgba(0, 0, 0, 0.1)',
+                overflow: 'visible',
+              }}
+            >
+              <Stack sx={{ mb: 5 }}>
+                <Typography variant="h3" gutterBottom color="primary">
+                  Login
+                </Typography>
+                <Typography sx={{ color: 'text.secondary' }}>Enter your details below.</Typography>
+              </Stack>
+              <AuthSocial />
+              <LoginForm />
+              {/* <MobileHidden width="smUp"> */}
               <Typography variant="body2" align="center" sx={{ mt: 3 }}>
                 Don’t have an account?&nbsp;
                 <Link variant="subtitle2" component={RouterLink} to="register">
                   Get started
                 </Link>
               </Typography>
-            </MobileHidden>
-            Don’t have an account? &nbsp;
-            <Link underline="none" variant="subtitle2" component={RouterLink} to="/signup">
-              Get started
-            </Link>
+              {/* </MobileHidden> */}
+            </Card>
           </ContentStyle>
         </Container>
         {/* </NavLayout> */}

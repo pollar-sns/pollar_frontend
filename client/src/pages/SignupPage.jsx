@@ -1,7 +1,17 @@
 import { Link as RouterLink } from 'react-router-dom';
 // material
 import { styled } from '@mui/material/styles';
-import { Box, Card, Link, Container, Typography } from '@mui/material';
+import {
+  Box,
+  Card,
+  Link,
+  Container,
+  Typography,
+  Stepper,
+  Step,
+  StepLabel,
+  Stack,
+} from '@mui/material';
 // layouts
 // import AuthLayout from '../layouts/AuthLayout';
 // components
@@ -29,77 +39,85 @@ const SectionStyle = styled(Card)(({ theme }) => ({
 }));
 
 const ContentStyle = styled('div')(({ theme }) => ({
-  maxWidth: 480,
+  maxWidth: 880,
   margin: 'auto',
   display: 'flex',
   minHeight: '100vh',
   flexDirection: 'column',
   justifyContent: 'center',
-  padding: theme.spacing(12, 0),
+  padding: theme.spacing(5, 0),
 }));
 
 // ----------------------------------------------------------------------
+const steps = ['기본정보', '관심분야 선택', '프로필 완성'];
+
+const HorizontalLabelPositionBelowStepper = () => {
+  return (
+    <Box sx={{ width: '50%', pb: 5 }}>
+      <Stepper activeStep={1} alternativeLabel>
+        {steps.map((label) => (
+          <Step key={label}>
+            <StepLabel>{label}</StepLabel>
+          </Step>
+        ))}
+      </Stepper>
+    </Box>
+  );
+};
 
 export default function SignupPage() {
   return (
     <RootStyle title="Register | Minimal-UI">
-      {/* <AuthLayout>
-        Already have an account? &nbsp;
-        <Link underline="none" variant="subtitle2" component={RouterLink} to="/login">
-          Login
-        </Link>
-      </AuthLayout> */}
-      {/* 
-      <MobileHidden width="mdDown">
-        <SectionStyle>
-          <Typography variant="h3" sx={{ px: 5, mt: 10, mb: 5 }}>
-            Manage the job more effectively with Minimal
-          </Typography>
-          <img alt="register" src="/static/illustrations/illustration_register.png" />
-        </SectionStyle>
-      </MobileHidden> */}
-
       <Container>
         <ContentStyle>
-          <Box sx={{ mb: 5 }}>
-            <Typography variant="h3" gutterBottom color="primary">
-              Sign Up
+          <Card
+            sx={{
+              px: 8,
+              py: 8,
+              backgroundColor: '#fffc',
+              backdropFilter: 'saturate(200%) blur(50px)',
+              boxShadow: '2px 2px 20px 10px rgba(0, 0, 0, 0.1)',
+              overflow: 'visible',
+            }}
+          >
+            <Stack direction="row" justifyContent="space-between" spacing={2}>
+              <Box sx={{ mb: 5 }}>
+                <Typography variant="h3" gutterBottom color="primary">
+                  Sign Up
+                </Typography>
+                <Typography sx={{ color: 'text.secondary' }}>Join us in Pollar!</Typography>
+              </Box>
+
+              <HorizontalLabelPositionBelowStepper />
+            </Stack>
+            {/* // todo 소셜 회원가입 */}
+            {/* <AuthSocial /> */}
+
+            <RegisterForm />
+
+            <Typography variant="body2" align="center" sx={{ color: 'text.secondary', mt: 3 }}>
+              By registering, I agree to Minimal&nbsp;
+              <Link underline="always" sx={{ color: 'text.primary' }}>
+                Terms of Service
+              </Link>
+              &nbsp;and&nbsp;
+              <Link underline="always" sx={{ color: 'text.primary' }}>
+                Privacy Policy
+              </Link>
+              .
             </Typography>
-            <Typography sx={{ color: 'text.secondary' }}>Join us in Pollar!</Typography>
-          </Box>
 
-          <AuthSocial />
+            <SelectInterests />
 
-          <RegisterForm />
-
-          <Typography variant="body2" align="center" sx={{ color: 'text.secondary', mt: 3 }}>
-            By registering, I agree to Minimal&nbsp;
-            <Link underline="always" sx={{ color: 'text.primary' }}>
-              Terms of Service
-            </Link>
-            &nbsp;and&nbsp;
-            <Link underline="always" sx={{ color: 'text.primary' }}>
-              Privacy Policy
-            </Link>
-            .
-          </Typography>
-
-          <SelectInterests />
-
-          <MobileHidden width="smUp">
+            {/* <MobileHidden width="smUp"> */}
             <Typography variant="subtitle2" sx={{ mt: 3, textAlign: 'center' }}>
               Already have an account?&nbsp;
               <Link to="/login" component={RouterLink}>
                 Login
               </Link>
             </Typography>
-          </MobileHidden>
-          <Typography variant="subtitle2" sx={{ mt: 3, textAlign: 'center' }}>
-            Already have an account?&nbsp;
-            <Link to="/login" component={RouterLink}>
-              Login
-            </Link>
-          </Typography>
+            {/* </MobileHidden> */}
+          </Card>
         </ContentStyle>
       </Container>
     </RootStyle>
