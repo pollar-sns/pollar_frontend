@@ -2,8 +2,8 @@ import { RecoilRoot } from 'recoil';
 // routes
 import Router from './routes';
 // theme
-import ThemeConfig from './assets/theme';
-import GlobalStyles from './assets/theme/globalStyles';
+import ThemeConfig from './assets/themes';
+import GlobalStyles from './assets/themes/globalStyles';
 // components
 import ScrollToTop from './components/common/ScrollToTop';
 

@@ -14,7 +14,7 @@ export const signup = (userData) => {
 /* 로그인 */
 export const login = async (userData) => {
   const response = await instance.post('/user/login', userData);
-  if (response.data['access-token']) {
+  if (response.data.accessToken) {
     // save JWT token
     localStorage.setItem('user', JSON.stringify(response.data));
   }
