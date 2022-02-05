@@ -7,6 +7,7 @@ import ErrorPage from './pages/ErrorPage';
 import HomePage from './pages/HomePage';
 import LoginPage from './pages/LoginPage';
 import PollsPage from './pages/PollsPage';
+import ProfilePage from './pages/ProfilePage';
 import SignupPage from './pages/SignupPage';
 import TrendingPage from './pages/TrendingPage';
 
@@ -19,6 +20,7 @@ export default function Router() {
       children: [
         { path: 'signup', element: <SignupPage /> },
         { path: 'login', element: <LoginPage /> },
+        { path: 'profile', element: <ProfilePage /> },
       ],
     },
     {
@@ -26,25 +28,9 @@ export default function Router() {
       element: <NavLayout />,
       children: [
         { element: <Navigate to="/" replace /> },
-        { path: 'interests/:interest', element: <SignupPage /> },
+        { path: 'interests/:interest', element: <PollsPage /> },
         { path: 'following', element: <TrendingPage /> },
       ],
-    },
-    // {
-    //   path: '/login',
-    //   element: <LoginPage />,
-    // },
-    // {
-    //   path: '/signup',
-    //   element: <SignupPage />,
-    // },
-    {
-      path: '/trending',
-      element: <TrendingPage />,
-    },
-    {
-      path: '/about',
-      element: <AboutPage />,
     },
     {
       path: '/error',
@@ -56,7 +42,11 @@ export default function Router() {
       children: [
         // { element: <Navigate to="/" replace /> },
         { path: '/', element: <HomePage /> },
-        // { path: '*', element: <Navigate to="/404" replace /> },
+        // { path: 'login', element: <LoginPage /> },
+        // { path: 'signup', element: <SignupPage /> },
+        { path: 'profile', element: <ProfilePage /> },
+        { path: 'about', element: <AboutPage /> },
+        { path: 'trending', element: <TrendingPage /> },
       ],
     },
     { path: '*', element: <Navigate to="/error" replace /> },
