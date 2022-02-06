@@ -42,7 +42,7 @@ const ContentStyle = styled('div')(({ theme }) => ({
   maxWidth: 880,
   margin: 'auto',
   display: 'flex',
-  minHeight: '100vh',
+  // minHeight: '100vh',
   flexDirection: 'column',
   justifyContent: 'center',
   padding: theme.spacing(5, 0),
@@ -67,14 +67,14 @@ const HorizontalLabelPositionBelowStepper = () => {
 
 export default function SignupPage() {
   return (
-    <RootStyle title="Register | Minimal-UI">
+    <RootStyle title="Signup">
       <Container>
         <ContentStyle>
           <Card
             sx={{
               px: 8,
               py: 8,
-              backgroundColor: '#fffc',
+              backgroundColor: '#fffd',
               backdropFilter: 'saturate(200%) blur(50px)',
               boxShadow: '2px 2px 20px 10px rgba(0, 0, 0, 0.1)',
               overflow: 'visible',
@@ -107,12 +107,12 @@ export default function SignupPage() {
               .
             </Typography>
 
-            <SelectInterests />
+            {/* <SelectInterests /> */}
 
             {/* <MobileHidden width="smUp"> */}
             <Typography variant="subtitle2" sx={{ mt: 3, textAlign: 'center' }}>
               Already have an account?&nbsp;
-              <Link to="/login" component={RouterLink}>
+              <Link to="../login" component={RouterLink}>
                 Login
               </Link>
             </Typography>

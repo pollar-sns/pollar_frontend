@@ -4,7 +4,7 @@ import { Box, Card } from '@mui/material';
 import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 
-import Posts from '../components/profile/Posts';
+import FeedTabs from '../components/profile/FeedTabs';
 import Profile from '../components/profile/Profile';
 
 export default function ProfilePage() {
@@ -38,7 +38,7 @@ export default function ProfilePage() {
             <Profile />
 
             <Box bgColor="white" minHeight="60vh">
-              <Posts />
+              <FeedTabs />
             </Box>
           </Card>
         </Container>
