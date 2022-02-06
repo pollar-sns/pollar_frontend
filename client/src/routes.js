@@ -28,6 +28,11 @@ export default function Router() {
       ],
     },
     {
+      path: '/settings',
+      element: <NavLayout />,
+      children: [{ path: '', element: <SettingsPage /> }],
+    },
+    {
       path: '/polls',
       element: <NavLayout />,
       children: [
@@ -35,6 +40,11 @@ export default function Router() {
         { path: ':type', element: <PollsPage /> },
         { path: 'create', element: <PollCreatePage /> },
       ],
+    },
+    {
+      path: '/about',
+      element: <FullLayout />,
+      children: [{ path: '', element: <AboutPage /> }],
     },
     {
       path: '/error',
@@ -45,7 +55,6 @@ export default function Router() {
       element: <NavLayout />,
       children: [
         { path: '/', element: <HomePage /> },
-        { path: 'about', element: <AboutPage /> },
         { path: 'trending', element: <TrendingPage /> },
       ],
     },

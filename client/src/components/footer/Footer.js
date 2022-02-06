@@ -96,7 +96,8 @@ function Footer() {
             </Stack>
             <Typography variant="caption" opacity={0.8}>
               All rights reserved. Copyright ©{' '}
-              <script>document.write(new Date().getFullYear())</script>2022 Material Design.
+              <script>document.write(new Date().getFullYear())</script>2022 Material Design. @Ezhe
+              Shin
             </Typography>
           </Grid>
           <Grid item xs={12} lg={6} ml="auto" textAlign={{ xs: 'center', lg: 'right' }}>
