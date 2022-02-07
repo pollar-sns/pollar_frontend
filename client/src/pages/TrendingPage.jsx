@@ -8,10 +8,10 @@ export default function TrendingPage() {
         <Grid
           container
           item
-          xs={12}
-          lg={8}
+          // xs={12}
+          // lg={8}
           justifyContent="center"
-          alignItems="center"
+          // alignItems="center"
           flexDirection="column"
           sx={{ mx: 'auto', textAlign: 'center' }}
         >

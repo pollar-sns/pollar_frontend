@@ -24,7 +24,7 @@ const style = {
   boxShadow: 10,
   borderBottomLeftRadius: 20,
   borderBottomRightRadius: 20,
-  px: 10,
+  px: 2,
   py: 2,
 };
 

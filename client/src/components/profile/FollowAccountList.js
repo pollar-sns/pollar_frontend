@@ -14,6 +14,8 @@ import {
 export default function FollowAccountList() {
   const [checked, setChecked] = useState([1]);
 
+  // todo props로 modifier함수 가져오기 (모달창 닫아야 함)
+
   // useHistory hook gives you access to the history instance that you may use to navigate
   let navigate = useNavigate();
 

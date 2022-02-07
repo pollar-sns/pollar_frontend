@@ -85,7 +85,16 @@ export default function SignupPage() {
                 <Typography variant="h3" gutterBottom color="primary">
                   Sign Up
                 </Typography>
-                <Typography sx={{ color: 'text.secondary' }}>Join us in Pollar!</Typography>
+                <Stack direction="row" justifyContent="space-between">
+                  <Typography variant="body2" color="text.secondary" sx={{ textAlign: 'center' }}>
+                    Already have an account?&nbsp;
+                  </Typography>
+                  <Typography variant="subtitle2">
+                    <Link to="../login" component={RouterLink}>
+                      Login
+                    </Link>
+                  </Typography>
+                </Stack>
               </Box>
 
               <HorizontalLabelPositionBelowStepper />
@@ -96,7 +105,7 @@ export default function SignupPage() {
             <RegisterForm />
 
             <Typography variant="body2" align="center" sx={{ color: 'text.secondary', mt: 3 }}>
-              By registering, I agree to Minimal&nbsp;
+              By registering, I agree to Pollar&nbsp;
               <Link underline="always" sx={{ color: 'text.primary' }}>
                 Terms of Service
               </Link>
@@ -108,15 +117,6 @@ export default function SignupPage() {
             </Typography>
 
             {/* <SelectInterests /> */}
-
-            {/* <MobileHidden width="smUp"> */}
-            <Typography variant="subtitle2" sx={{ mt: 3, textAlign: 'center' }}>
-              Already have an account?&nbsp;
-              <Link to="../login" component={RouterLink}>
-                Login
-              </Link>
-            </Typography>
-            {/* </MobileHidden> */}
           </Card>
         </ContentStyle>
       </Container>

@@ -1,4 +1,9 @@
+import { Box, Card, Container, IconButton, Stack } from '@mui/material';
+
 import { useState } from 'react';
+import './tempstyle.css';
+import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 
 export default function TrendingPollsSlider() {
   const [selectedIndex, setSelectedIndex] = useState(0);
@@ -12,14 +17,18 @@ export default function TrendingPollsSlider() {
   const check = (index) => setSelectedIndex(index);
 
   return (
-    <div>
-      <div className="flex flex-wrap sm:-m-4 -mx-4 -mb-10 -mt-4">
-        <div className="md:w-1/4 py-64 md:mb-0 mb-6 flex flex-col text-center items-center">
-          <div className="w-20 h-20 inline-flex items-center justify-center rounded-full bg-orange-100 text-orange-500 mb-5 flex-shrink-0">
-            <button onClick={checkNext}>{'<'}</button>
-          </div>
-        </div>
-        <div className="md:w-2/4 md:mb-0 mb-6 flex flex-col text-center items-center">
+    <>
+      <Stack
+        direction="row"
+        justifyContent="space-between"
+        alignItems="center"
+        // sx={{ width: '50vw' }}
+      >
+        <IconButton color="primary" aria-label="prev item" onClick={checkNext}>
+          <ArrowBackIosIcon />
+        </IconButton>
+        {/* <div className="md:w-2/4 md:mb-0 mb-6 flex flex-col text-center items-center"> */}
+        <Box>
           <section
             id="slider"
             className="w-16 h-20 inline-flex items-center justify-center mb-5 flex-shrink-0"
@@ -46,22 +55,57 @@ export default function TrendingPollsSlider() {
               onClick={() => check(2)}
             />
             <label htmlFor="s1" id="slide1">
-              <img className="fea" src="https://picsum.photos/200/200" height="100%" width="100%" />
+              <Card
+                sx={{
+                  height: '100%',
+                  width: '100%',
+                }}
+              >
+                <img
+                  className="fea"
+                  src="https://picsum.photos/200/200"
+                  height="100%"
+                  width="100%"
+                />
+              </Card>
             </label>
             <label htmlFor="s2" id="slide2">
-              <img className="fea" src="https://picsum.photos/200/300" height="100%" width="100%" />
+              <Card
+                sx={{
+                  height: '100%',
+                  width: '100%',
+                }}
+              >
+                <img
+                  className="fea"
+                  src="https://picsum.photos/200/300"
+                  height="100%"
+                  width="100%"
+                />
+              </Card>
             </label>
             <label htmlFor="s3" id="slide3">
-              <img className="fea" src="https://picsum.photos/300/300" height="100%" width="100%" />
+              <Card
+                sx={{
+                  height: '100%',
+                  width: '100%',
+                }}
+              >
+                <img
+                  className="fea"
+                  src="https://picsum.photos/300/300"
+                  height="100%"
+                  width="100%"
+                />
+              </Card>
             </label>
           </section>
-        </div>
-        <div className="md:w-1/4 py-64 md:mb-0 mb-6 flex flex-col text-center items-center">
-          <div className="w-20 h-20 inline-flex items-center justify-center rounded-full bg-orange-100 text-orange-500 mb-5 flex-shrink-0">
-            <button onClick={checkNext}>{'>'}</button>
-          </div>
-        </div>
-      </div>
-    </div>
+        </Box>
+        {/* </div> */}
+        <IconButton color="primary" aria-label="next item" onClick={checkNext}>
+          <ArrowForwardIosIcon />
+        </IconButton>
+      </Stack>
+    </>
   );
 }
