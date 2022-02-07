@@ -20,6 +20,7 @@ export default function AboutPage() {
       <RootStyle title="About Pollar">
         <Container>
           <Box
+            justifyContent="center"
             minHeight="55vh"
             width="100%"
             sx={{

@@ -56,7 +56,7 @@ export default function Login() {
             <Card
               sx={{
                 px: 8,
-                py: 10,
+                py: 8,
                 backgroundColor: '#fffd',
                 backdropFilter: 'saturate(200%) blur(30px)',
                 boxShadow: '2px 2px 20px 10px rgba(0, 0, 0, 0.1)',
@@ -67,10 +67,10 @@ export default function Login() {
                 <Typography variant="h3" gutterBottom color="primary">
                   Login
                 </Typography>
-                <Typography sx={{ color: 'text.secondary' }}>Enter your details below.</Typography>
+                <Typography sx={{ color: 'text.secondary' }}>Welcome back!</Typography>
               </Stack>
-              <AuthSocial />
               <LoginForm />
+              <AuthSocial />
               {/* <MobileHidden width="smUp"> */}
               <Typography variant="body2" align="center" sx={{ mt: 3 }}>
                 Don’t have an account?&nbsp;

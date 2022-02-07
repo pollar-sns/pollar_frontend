@@ -69,7 +69,7 @@ function Footer() {
                   fontWeight="regular"
                   opacity={0.8}
                   component={Link}
-                  href="https://www.creative-tim.com/blog"
+                  href="/users/profile"
                   underline="none"
                   target="_blank"
                   rel="noreferrer"
@@ -90,7 +90,7 @@ function Footer() {
                   rel="noreferrer"
                   color="text.disabled"
                 >
-                  Github
+                  Gitlab
                 </Typography>
               </Box>
             </Stack>

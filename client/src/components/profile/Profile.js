@@ -11,7 +11,6 @@ import { useState } from 'react';
 function Profile({ profileInfo, isOwnerAccount }) {
   // todo DELETE (mock data)
   profileInfo = profile;
-  const isOwner = true;
 
   const [openFollowListModal, setOpenFollowListModal] = useState(false);
   // 팔로잉, 팔로워 모달 창을 open 시 focus할 tab
@@ -100,7 +99,7 @@ function Profile({ profileInfo, isOwnerAccount }) {
                   &nbsp;View&nbsp;Statistics&nbsp;
                 </Button>
                 {/* 본인의 계정 프로필인지에 따라서, 팔로잉을 하고 있는 계정의 프로필인지에 따라서 레이아웃 변화 */}
-                {!isOwner ? (
+                {!isOwnerAccount ? (
                   <Button href="/users/settings" variant="contained" size="small">
                     Settings
                   </Button>
