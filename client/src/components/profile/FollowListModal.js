@@ -18,7 +18,7 @@ const style = {
   p: 4,
 };
 
-export default function FollowListModal({ openModal, type }) {
+export default function FollowListModal({ openModal, type, listOwnerId }) {
   // 의도적으로 초기값을 설정하지 않음(i.e. undefined 상태) -> Modal이 페이지가 들어가자마자 열리는 것을 방지하기 위함
   const [open, setOpen] = useState();
   const [focusedTab, setFocusedTab] = useState('follower');
@@ -75,7 +75,11 @@ export default function FollowListModal({ openModal, type }) {
             </Box>
             <Box sx={{ backgroundColor: '#fff', mx: { xs: -2, lg: -3 }, mt: -0.5 }}>
               <TabPanel value="follower">
-                <FollowAccountList />
+                <FollowAccountList
+                  listType="follower"
+                  setOpenModal={setOpen}
+                  listOwnerId={listOwnerId}
+                />
               </TabPanel>
               <TabPanel value="following">
                 <FollowAccountList />

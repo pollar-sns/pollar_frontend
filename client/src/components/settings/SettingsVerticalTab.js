@@ -73,7 +73,8 @@ export default function SettingsVerticalTab() {
         <Tab label="Notification&nbsp;" {...a11yProps(2)} />
       </Tabs>
       <TabPanel value={value} index={0}>
-        {/* <ProfileInfoSettings /> */}
+        한주님 작업공간
+        <ProfileInfoSettings />
         {/* <CardProfile /> */}
       </TabPanel>
       <TabPanel value={value} index={1}>
@@ -81,9 +82,8 @@ export default function SettingsVerticalTab() {
         <SelectInterests />
       </TabPanel>
       <TabPanel value={value} index={2}>
-        Item Three
+        알림설정
       </TabPanel>
-      <ImageUploadButton />
     </Box>
   );
 }

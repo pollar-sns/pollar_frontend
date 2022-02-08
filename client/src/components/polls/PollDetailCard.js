@@ -32,7 +32,7 @@ export default function PollDetailCard() {
         </Typography>
       </CardContent>
       <CardActions>
-        <Button size="small">Learn More</Button>
+        <Button size="small">Poll closed ...Check Results</Button>
       </CardActions>
     </Card>
   );

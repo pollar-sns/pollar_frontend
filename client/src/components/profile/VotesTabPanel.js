@@ -17,7 +17,7 @@ export default function VotesTabPanel() {
     <>
       <Page title="VotesTabPanel">
         <Container>
-          <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
+          {/* <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
             <Typography variant="h4" gutterBottom>
               Blog
             </Typography>
@@ -29,7 +29,7 @@ export default function VotesTabPanel() {
             >
               New Post
             </Button>
-          </Stack>
+          </Stack> */}
 
           {/* <Stack mb={5} direction="row" alignItems="center" justifyContent="space-between">
             <BlogPostsSearch posts={POSTS} />
