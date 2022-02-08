@@ -21,6 +21,9 @@ import logo from '../../assets/images/pollar_logo.svg';
 import sidebarConfig from './SidebarConfig';
 import NavSection from './NavSection';
 import { Link } from 'react-router-dom';
+import { getLoggedUserId } from 'utils/loggedUser';
+import { useEffect, useState } from 'react';
+import { getLoggedUserInfo } from 'utils/loggedUser';
 
 // ----------------------------------------------------------------------
 
@@ -57,7 +60,13 @@ export default function Navbar({ onOpenSidebar, isFullLayout }) {
   const [loggedUser, setLoggedUser] = useRecoilState(loggedUserState);
   // todo 문제점: 새로고침 시 recoil state 날라감 (line 90)
   // JWT 검사로 변경 필요
+  const [loggedUserInfo, setLoggedUserInfo] = useState();
 
+  useEffect(() => {
+    console.log(loggedUser);
+    const localStorageUserInfo = getLoggedUserInfo();
+    setLoggedUserInfo(localStorageUserInfo);
+  }, [loggedUser]); //? 로그아웃 시, 감지를 하기 위해서 recoil을 deps에 추가하는 방식으로 설계함
   return (
     <RootStyle sx={isFullLayout ? { backgroundColor: 'transparent' } : null}>
       <Container maxWidth="lg">
@@ -88,10 +97,11 @@ export default function Navbar({ onOpenSidebar, isFullLayout }) {
 
                 <Searchbar />
                 <Box sx={{ flexGrow: 1 }} />
-                {loggedUser.userId ? (
+                {/* loggedUserId 가 undefined인지 여부에 따라서 Navbar 구성 변경 */}
+                {loggedUserInfo ? (
                   <>
                     <NotificationsPopover />
-                    <AccountPopover />
+                    <AccountPopover account={loggedUserInfo} />
                   </>
                 ) : (
                   <>

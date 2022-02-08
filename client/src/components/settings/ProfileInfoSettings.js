@@ -22,6 +22,7 @@ import { LoadingButton } from '@mui/lab';
 import { signup } from '../../services/api/AuthApi';
 
 import tododo from '../../assets/images/profile.jpeg';
+import ImageUploadButton from 'components/common/ImageUploadButton';
 
 // ----------------------------------------------------------------------
 
@@ -83,114 +84,115 @@ export default function RegisterForm() {
         </div>
         <input id="photo-upload" type="file" onChange={onChange} />
       </label> */}
-      {/* <FormikProvider value={formik}>
-      <Form autoComplete="off" noValidate onSubmit={handleSubmit}>
-        <Stack spacing={3}>
-          <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2}>
+      <FormikProvider value={formik}>
+        <ImageUploadButton />
+        <Form autoComplete="off" noValidate onSubmit={handleSubmit}>
+          <Stack spacing={3}>
+            <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2}>
+              <TextField
+                fullWidth
+                required
+                label="Username"
+                {...getFieldProps('userId')}
+                error={Boolean(touched.userId && errors.userId)}
+                helperText={touched.userId && errors.userId}
+                value={formik.values.userId}
+                onChange={formik.handleChange}
+              />
+
+              <TextField
+                fullWidth
+                required
+                label="Nickname"
+                {...getFieldProps('userNickname')}
+                error={Boolean(touched.userNickname && errors.userNickname)}
+                helperText={touched.userNickname && errors.userNickname}
+                value={formik.values.userNickname}
+                onChange={formik.handleChange}
+              />
+            </Stack>
+
             <TextField
               fullWidth
               required
-              label="Username"
-              {...getFieldProps('userId')}
-              error={Boolean(touched.userId && errors.userId)}
-              helperText={touched.userId && errors.userId}
-              value={formik.values.userId}
+              autoComplete="username"
+              type="email"
+              label="Email address"
+              {...getFieldProps('userEmail')}
+              error={Boolean(touched.userEmail && errors.userEmail)}
+              helperText={touched.userEmail && errors.userEmail}
+              value={formik.values.userEmail}
               onChange={formik.handleChange}
             />
 
             <TextField
               fullWidth
               required
-              label="Nickname"
-              {...getFieldProps('userNickname')}
-              error={Boolean(touched.userNickname && errors.userNickname)}
-              helperText={touched.userNickname && errors.userNickname}
-              value={formik.values.userNickname}
-              onChange={formik.handleChange}
-            />
-          </Stack>
-
-          <TextField
-            fullWidth
-            required
-            autoComplete="username"
-            type="email"
-            label="Email address"
-            {...getFieldProps('userEmail')}
-            error={Boolean(touched.userEmail && errors.userEmail)}
-            helperText={touched.userEmail && errors.userEmail}
-            value={formik.values.userEmail}
-            onChange={formik.handleChange}
-          />
-
-          <TextField
-            fullWidth
-            required
-            autoComplete="current-password"
-            type={showPassword ? 'text' : 'password'}
-            label="Password"
-            {...getFieldProps('password')}
-            InputProps={{
-              endAdornment: (
-                <InputAdornment position="end">
-                  <IconButton edge="end" onClick={() => setShowPassword((prev) => !prev)}>
-                    <Icon icon={showPassword ? eyeFill : eyeOffFill} />
-                  </IconButton>
-                </InputAdornment>
-              ),
-            }}
-            error={Boolean(touched.password && errors.password)}
-            helperText={touched.password && errors.password}
-            value={formik.values.password}
-            onChange={formik.handleChange}
-          />
-          <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2}>
-            <TextField
-              id="date"
-              label="Birthday"
-              type="date"
-              sx={{ width: 200 }}
-              // defaultValue="2022-01-01"
-              {...getFieldProps('userBirthday')}
-              InputLabelProps={{
-                shrink: true,
+              autoComplete="current-password"
+              type={showPassword ? 'text' : 'password'}
+              label="Password"
+              {...getFieldProps('password')}
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <IconButton edge="end" onClick={() => setShowPassword((prev) => !prev)}>
+                      <Icon icon={showPassword ? eyeFill : eyeOffFill} />
+                    </IconButton>
+                  </InputAdornment>
+                ),
               }}
-              // onChange={(date) => {
-              //   setBirthday(date.target.value);
-              // }}
-              value={formik.values.userBirthday}
+              error={Boolean(touched.password && errors.password)}
+              helperText={touched.password && errors.password}
+              value={formik.values.password}
               onChange={formik.handleChange}
             />
-            <FormLabel id="gender-radio-group">Gender</FormLabel>
-            <RadioGroup
-              row
-              aria-labelledby="gender-radio-group"
-              name="row-radio-buttons-group"
-              // defaultValue=
-              {...getFieldProps('userSex')}
-              // value={gender}
-              // onChange={(gender) => {
-              //   setGender(gender.target.value);
-              // }}
-              value={formik.values.userSex}
-              onChange={formik.handleChange}
+            <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2}>
+              <TextField
+                id="date"
+                label="Birthday"
+                type="date"
+                sx={{ width: 200 }}
+                // defaultValue="2022-01-01"
+                {...getFieldProps('userBirthday')}
+                InputLabelProps={{
+                  shrink: true,
+                }}
+                // onChange={(date) => {
+                //   setBirthday(date.target.value);
+                // }}
+                value={formik.values.userBirthday}
+                onChange={formik.handleChange}
+              />
+              <FormLabel id="gender-radio-group">Gender</FormLabel>
+              <RadioGroup
+                row
+                aria-labelledby="gender-radio-group"
+                name="row-radio-buttons-group"
+                // defaultValue=
+                {...getFieldProps('userSex')}
+                // value={gender}
+                // onChange={(gender) => {
+                //   setGender(gender.target.value);
+                // }}
+                value={formik.values.userSex}
+                onChange={formik.handleChange}
+              >
+                <FormControlLabel value={true} control={<Radio />} label="Female" />
+                <FormControlLabel value={false} control={<Radio />} label="Male" />
+              </RadioGroup>
+            </Stack>
+            <LoadingButton
+              fullWidth
+              size="large"
+              type="submit"
+              variant="contained"
+              loading={isSubmitting}
             >
-              <FormControlLabel value={true} control={<Radio />} label="Female" />
-              <FormControlLabel value={false} control={<Radio />} label="Male" />
-            </RadioGroup>
+              Next (Register)
+            </LoadingButton>
           </Stack>
-          <LoadingButton
-            fullWidth
-            size="large"
-            type="submit"
-            variant="contained"
-            loading={isSubmitting}
-          >
-            Next (Register)
-          </LoadingButton>
-        </Stack>
-      </Form>
-    </FormikProvider> */}
+        </Form>
+      </FormikProvider>
     </>
   );
 }

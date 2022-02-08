@@ -2,10 +2,12 @@ import Container from '@mui/material/Container';
 
 import { Box, Card } from '@mui/material';
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 import FeedTabs from '../components/profile/FeedTabs';
 import Profile from '../components/profile/Profile';
+import { getProfileInfo } from 'services/api/ProfileApi';
+import { getLoggedUserId } from 'utils/loggedUser';
 
 const style = {
   p: 2,
@@ -21,19 +23,38 @@ const style = {
 };
 
 export default function ProfilePage() {
-  const { userId } = useParams();
+  const navigate = useNavigate();
+  let { userId } = useParams();
+  // 로그인되어있는 사용자의 Id
+  const loggedUserId = getLoggedUserId();
   // 사용자 계정 정보
   const [profileInfo, setProfileInfo] = useState();
+  // 사용자 본인의 계정 여부
+  const [isOwnerAccount, setIsOwnerAccount] = useState(false);
+  const checkIfOwnerAccount = () => {
+    if (typeof userId === 'undefined' || (loggedUserId && loggedUserId === userId)) {
+      if (loggedUserId) {
+        userId = loggedUserId;
+        setIsOwnerAccount(true);
+      } else {
+        alert('잘못된 접근입니다. 로그인하세요');
+        // 에러페이지로 이동
+        navigate('/error', { replace: true });
+      }
+    } else setIsOwnerAccount(false);
+  };
+  //// const isOwnerAccount = typeof userId === 'undefined' && userId === getLoggedUserId();
 
   /* 사용자 계정 정보 API 호출 */
-  // const getAccountInfo = async () => {
-  // const response = await get
-  // }
+  const getAccountInfo = async () => {
+    const data = await getProfileInfo(userId);
+    setProfileInfo(data);
+  };
 
   useEffect(() => {
-    console.log(userId);
+    checkIfOwnerAccount();
     // 사용자 계정정보 요청
-    // getAccountInfo();
+    getAccountInfo();
   }, [userId]);
 
   return (
@@ -42,7 +63,7 @@ export default function ProfilePage() {
         <Container>
           <Card sx={style}>
             {/* isOwnerAccount - 사용자 본인의 프로필: true, 다른 사용자의 프로필: false */}
-            <Profile profileInfo={profileInfo} isOwnerAccount={typeof userId === 'undefined'} />
+            <Profile profileInfo={profileInfo} isOwnerAccount={isOwnerAccount} />
             <Box bgColor="white" minHeight="60vh">
               <FeedTabs />
             </Box>

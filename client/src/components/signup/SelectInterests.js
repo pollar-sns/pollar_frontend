@@ -1,12 +1,16 @@
 import { useEffect, useState } from 'react';
 import { getAllCategories } from '../../services/api/CategoryApi';
-import { Chip, Stack, Typography } from '@mui/material';
+import { Button, Chip, Stack, Typography } from '@mui/material';
 
-export default function SelectInterests({ signupInfo }) {
+export default function SelectInterests({ setSelectedInterestList }) {
   // 전체 카테고리
   const [categoryList, setCategoryList] = useState([]);
   // 사용자 선택 관심분야
   const [interestList, setInterestList] = useState([]);
+
+  const handleCommit = () => {
+    setSelectedInterestList(setInterestList);
+  };
 
   const getList = async () => {
     const list = await getAllCategories();
@@ -33,7 +37,6 @@ export default function SelectInterests({ signupInfo }) {
               key={item.categoryId}
               label={item.categoryNameSmall}
               onClick={() => selectCategory(item)}
-              // clickable={interestList.includes(item)}
             />
           ))}
         </Stack>
@@ -103,6 +106,7 @@ export default function SelectInterests({ signupInfo }) {
           <CategoryGroup key={index} bigCategoryGroup={bigCategoryGroup} />
         ))}
       </Stack>
+      <Button onClick={handleCommit}>저장</Button>
     </>
   );
 }
