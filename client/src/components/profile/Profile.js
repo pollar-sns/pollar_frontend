@@ -96,7 +96,7 @@ function Profile({ profileInfo, isOwnerAccount }) {
                     {/* {profileInfo.interests.map((item, index) => (
                       <Chip key={index} label={item} color="info" size="small" variant="outlined" />
                     ))} */}
-                    {profileInfo.categoryList.map((item, index) => (
+                    {profileInfo.interests.map((item, index) => (
                       <Chip key={index} label={item} color="info" size="small" variant="outlined" />
                     ))}
                     {/* 관심분야 수정으로 바로 갈 수 있는 버튼 */}

@@ -13,6 +13,5 @@ export function getLoggedUserId() {
 
 export function getLoggedUserInfo() {
   const user = JSON.parse(localStorage.getItem('user'));
-  console.log(user);
   return user;
 }

@@ -50,7 +50,7 @@ function Posts() {
               <Tab label="Likes" value="3" />
             </TabList>
           </Box>
-          <Box sx={style}>
+          <Box overflow="auto" sx={style}>
             <TabPanel value="1">
               <UploadsTabPanel />
             </TabPanel>

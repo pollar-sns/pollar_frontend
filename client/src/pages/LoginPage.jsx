@@ -42,7 +42,7 @@ const ContentStyle = styled('div')(({ theme }) => ({
 export default function Login() {
   return (
     <>
-      <Page title="Login | Minimal-UI">
+      <Page title="Login">
         {/* <MobileHidden width="mdDown">
           <SectionStyle>
             <Typography variant="h3" sx={{ px: 5, mt: 10, mb: 5 }}>

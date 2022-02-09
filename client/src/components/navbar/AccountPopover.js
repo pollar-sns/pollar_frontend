@@ -70,7 +70,7 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
 
 // ----------------------------------------------------------------------
 
-export default function AccountPopover({ account }) {
+export default function AccountPopover({ account, setLoggedUser }) {
   const anchorRef = useRef(null);
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
@@ -93,6 +93,8 @@ export default function AccountPopover({ account }) {
     logout();
     // redirect to 'HomePage'
     navigate('/', { replace: true });
+    setOpen(false);
+    setLoggedUser();
   };
 
   return (

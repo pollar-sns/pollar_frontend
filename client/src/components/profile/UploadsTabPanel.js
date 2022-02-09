@@ -1,6 +1,6 @@
 import PollDetailCard from 'components/polls/PollDetailCard';
 
-import { Button, Container, Fab, Grid, Icon, Stack, Typography } from '@mui/material';
+import { Box, Button, Container, Fab, Grid, Icon, Stack, Typography } from '@mui/material';
 import Page from 'components/Page';
 import PollVoteCard from 'components/polls/PollVoteCard';
 import { Link } from 'react-router-dom';
@@ -37,30 +37,17 @@ export default function UploadsTabPanel() {
             <BlogPostsSort options={SORT_OPTIONS} />
           </Stack> */}
 
-          {/* <Grid container spacing={3}>
-            {posts.map((post, index) => ( */}
-          {/* <PollDetailCard key={post.id} post={post} index={index} /> */}
-          <PollDetailCard />
-          <PollDetailCard />
-          <PollDetailCard />
-          <PollDetailCard />
-          {/* <Fab
-            href="/polls/create"
-            variant="extended"
-            color="secondary"
-            sx={{ position: 'absolute', bottom: 0, right: 50 }}
-          > */}
+          {/* <Grid container spacing={2}> */}
+          {posts.map((post, index) => (
+            <PollDetailCard key={post.id} post={post} index={index} />
+          ))}
+          {/* </Grid> */}
           <GradAnimatedButton
             href="/polls/create"
             sx={{ position: 'absolute', bottom: 0, right: 50 }}
           >
             <Typography variant="subtitle2">&nbsp;+&nbsp;Create New Poll&nbsp;&nbsp;</Typography>
           </GradAnimatedButton>
-          {/* <AddIcon />
-            <Typography variant="button">Create New Poll&nbsp;</Typography> */}
-          {/* </Fab> */}
-          {/* ))} */}
-          {/* </Grid> */}
         </Container>
       </Page>
     </>
