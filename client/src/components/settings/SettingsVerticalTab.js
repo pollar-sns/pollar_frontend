@@ -5,10 +5,8 @@ import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import SelectInterests from '../signup/SelectInterests';
-import { Button } from '@mui/material';
 import ProfileInfoSettings from './ProfileInfoSettings';
-import CardProfile from './CardProfile';
-import ImageUploadButton from '../common/ImageUploadButton';
+import NotificationSettings from './NotificationSettings';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -83,6 +81,7 @@ export default function SettingsVerticalTab() {
       </TabPanel>
       <TabPanel value={value} index={2}>
         알림설정
+        <NotificationSettings />
       </TabPanel>
     </Box>
   );

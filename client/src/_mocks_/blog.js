@@ -43,7 +43,7 @@ const posts = [...Array(23)].map((_, index) => ({
   share: 2345,
   favorite: 2345,
   author: {
-    name: '샘플',
+    name: 'sdkfj',
     avatarUrl: { img },
   },
   // createdAt: faker.date.past(),

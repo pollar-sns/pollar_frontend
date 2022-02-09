@@ -13,6 +13,7 @@ import {
 import FollowButton from './FollowButton';
 import { getFollowerList } from 'services/api/FollowApi';
 import { getFollowingList } from 'services/api/FollowApi';
+import { getLoggedUserId } from 'utils/loggedUser';
 
 /**
  * 팔로워, 팔로잉 리스트 공용
@@ -27,10 +28,12 @@ export default function FollowAccountList({ listType, setOpenModal, listOwnerId 
   const [accountList, setAccountList] = useState([]);
   const isFollowerList = listType === 'follower';
 
+  const loggedUserId = getLoggedUserId();
+
   const getAccountList = async () => {
     const list = isFollowerList
-      ? await getFollowerList(listOwnerId)
-      : await getFollowingList(listOwnerId);
+      ? await getFollowerList(listOwnerId, loggedUserId)
+      : await getFollowingList(listOwnerId, loggedUserId);
     setAccountList(list);
   };
 
@@ -63,11 +66,15 @@ export default function FollowAccountList({ listType, setOpenModal, listOwnerId 
           <ListItem
             key={index}
             secondaryAction={
-              <FollowButton
-                isFollowButton={!account.isFollow}
-                // 리스트의 종류에 따라서, accountId를 각각 다르게 꺼내와야 함
-                accountId={isFollowerList ? account.followingId : account.followerId}
-              />
+              //? 사용자 본인일 경우에는 버튼을 생성하지 않음
+              account.followerId !== loggedUserId ? (
+                <FollowButton
+                  isFollowButton={!account.isFollow}
+                  // 리스트의 종류에 따라서, accountId를 각각 다르게 꺼내와야 함
+                  //// accountId={isFollowerList ? account.followingId : account.followerId}
+                  accountId={account.followerId}
+                />
+              ) : null
             }
             disablePadding
             onClick={() => handleAccountClick(account)}
@@ -76,8 +83,8 @@ export default function FollowAccountList({ listType, setOpenModal, listOwnerId 
               <ListItemAvatar>
                 <Avatar
                   // todo 사용자 프로필 추가 + listType에 따라서 갈리게
-                  alt={`Avatar n°${account.followingNickname + 1}`}
-                  src={`/static/images/avatar/${account.followingNickname + 1}.jpg`}
+                  alt={`Avatar n°${account.followerNickname + 1}`}
+                  src={`/static/images/avatar/${account.followerNickname + 1}.jpg`}
                 />
               </ListItemAvatar>
               {/* <ListItemText id={labelId} primary={`Line item ${value + 1}`} /> */}
@@ -90,7 +97,8 @@ export default function FollowAccountList({ listType, setOpenModal, listOwnerId 
                     variant="body1"
                     color="text.primary"
                   >
-                    {isFollowerList ? account.followingNickname : account.followerNickname}
+                    {/* {isFollowerList ? account.followingNickname : account.followerNickname} */}
+                    {account.followerNickname}
                   </Typography>
                 }
                 secondary={
@@ -101,7 +109,8 @@ export default function FollowAccountList({ listType, setOpenModal, listOwnerId 
                       variant="caption"
                       color="text.disabled"
                     >
-                      @{isFollowerList ? account.followingId : account.followerId}
+                      {/* @{isFollowerList ? account.followingId : account.followerId} */}@
+                      {account.followerId}
                     </Typography>
                   </>
                 }
