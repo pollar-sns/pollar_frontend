@@ -9,7 +9,7 @@ import MobileHidden from 'components/common/MobileHidden';
 import { useNavigate } from 'react-router-dom';
 import FollowButton from './FollowButton';
 
-function Profile({ profileInfo, isOwnerAccount }) {
+function Profile({ profileInfo, isOwnerAccount, setTriggerRefresh }) {
   // (mock data)
   //// profileInfo = profile;
 
@@ -23,37 +23,6 @@ function Profile({ profileInfo, isOwnerAccount }) {
     // 모달창을 open
     setOpenFollowListModal((curr) => !curr);
   };
-
-  // const handleFollow = async () => {
-  //   const result = await requestFollow({
-  //     followerId: getLoggedUserId(),
-  //     followingId: profileInfo.userId,
-  //   })
-  //     .then(() => {
-  //       if (result) {
-  //         console.log(result);
-  //       } else {
-  //         alert('ERROR');
-  //       }
-  //     })
-  //     .catch((error) => {
-  //       // todo 500 페이지 만들기
-  //       navigate('/error', { replace: true });
-  //       alert(error);
-  //     });
-  // };
-
-  // const handleUnfollow = async () => {
-  //   const result = await requestUnfollow({
-  //     followerId: getLoggedUserId(),
-  //     followingId: profileInfo.userId,
-  //   });
-  //   if (result) {
-  //     console.log(result);
-  //   } else {
-  //     alert('ERROR');
-  //   }
-  // };
 
   return (
     <Box component="section" pt={{ xs: 6, sm: 12 }} pb={{ xs: 3, sm: 6 }}>
@@ -92,10 +61,6 @@ function Profile({ profileInfo, isOwnerAccount }) {
                     {profileInfo.userNickname}
                   </Typography>
                   <Stack direction="row" spacing={1}>
-                    {/* //todo 네이밍: categoryList -> interests */}
-                    {/* {profileInfo.interests.map((item, index) => (
-                      <Chip key={index} label={item} color="info" size="small" variant="outlined" />
-                    ))} */}
                     {profileInfo.interests.map((item, index) => (
                       <Chip key={index} label={item} color="info" size="small" variant="outlined" />
                     ))}
@@ -165,6 +130,7 @@ function Profile({ profileInfo, isOwnerAccount }) {
                     <FollowButton
                       isFollowButton={!profileInfo.isFollow}
                       accountId={profileInfo.userId}
+                      setTriggerRefresh={setTriggerRefresh}
                     />
                   )}
 

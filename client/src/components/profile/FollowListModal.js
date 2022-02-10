@@ -82,7 +82,11 @@ export default function FollowListModal({ openModal, type, listOwnerId }) {
                 />
               </TabPanel>
               <TabPanel value="following">
-                <FollowAccountList />
+                <FollowAccountList
+                  listType="following"
+                  setOpenModal={setOpen}
+                  listOwnerId={listOwnerId}
+                />
               </TabPanel>
             </Box>
           </TabContext>
