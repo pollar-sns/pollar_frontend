@@ -179,6 +179,17 @@ export default function RegisterForm() {
           >
             Next (Register)
           </LoadingButton>
+          <Typography variant="body2" align="center" sx={{ color: 'text.secondary', mt: 3 }}>
+            By registering, I agree to Pollar&nbsp;
+            <Link underline="always" sx={{ color: 'text.primary' }}>
+              Terms of Service
+            </Link>
+            &nbsp;and&nbsp;
+            <Link underline="always" sx={{ color: 'text.primary' }}>
+              Privacy Policy
+            </Link>
+            .
+          </Typography>
         </Stack>
       </Form>
     </FormikProvider>

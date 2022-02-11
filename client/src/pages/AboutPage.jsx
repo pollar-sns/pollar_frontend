@@ -29,7 +29,7 @@ export default function AboutPage() {
               //     rgba(gradients.dark.main, 0.6),
               //     rgba(gradients.dark.state, 0.6)
               //   )}, url(${bgImage})`,
-              backgroundImage: 'url(' + bgImage + ')',
+              // backgroundImage: 'url(' + bgImage + ')',
               backgroundSize: 'cover',
               backgroundPosition: 'center',
               marginTop: '-10px',
