@@ -4,6 +4,7 @@ import { useState } from 'react';
 import './tempstyle.css';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import PollTrendingCard from 'components/polls/PollTrendingCard';
 
 export default function TrendingPollsSlider() {
   const [selectedIndex, setSelectedIndex] = useState(0);
@@ -55,22 +56,11 @@ export default function TrendingPollsSlider() {
               onClick={() => check(2)}
             />
             <label htmlFor="s1" id="slide1">
-              <Card
-                sx={{
-                  height: '100%',
-                  width: '100%',
-                }}
-              >
-                <img
-                  className="fea"
-                  src="https://picsum.photos/200/200"
-                  height="100%"
-                  width="100%"
-                />
-              </Card>
+              <PollTrendingCard />
             </label>
             <label htmlFor="s2" id="slide2">
-              <Card
+              <PollTrendingCard />
+              {/* <Card
                 sx={{
                   height: '100%',
                   width: '100%',
@@ -82,22 +72,10 @@ export default function TrendingPollsSlider() {
                   height="100%"
                   width="100%"
                 />
-              </Card>
+              </Card> */}
             </label>
             <label htmlFor="s3" id="slide3">
-              <Card
-                sx={{
-                  height: '100%',
-                  width: '100%',
-                }}
-              >
-                <img
-                  className="fea"
-                  src="https://picsum.photos/300/300"
-                  height="100%"
-                  width="100%"
-                />
-              </Card>
+              <PollTrendingCard />
             </label>
           </section>
         </Box>
