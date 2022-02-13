@@ -1,25 +1,34 @@
-import { Button, Container, Grid, Icon, Stack, Typography } from '@mui/material';
-import Page from 'components/Page';
+import { Container, Grid } from '@mui/material';
 import PollVoteCard from 'components/polls/PollVoteCard';
-import { Link } from 'react-router-dom';
-// import uploadedPoll from '_mocks_/uploadedPoll';
-import plusFill from '@iconify/icons-eva/plus-fill';
-import posts from '_mocks_/blog';
+import { useEffect, useState } from 'react';
+import { getUserVotesList } from 'services/api/ProfileApi';
+import { getLoggedUserId } from 'utils/loggedUser';
+
 // ----------------------------------------------------------------------
 
-const SORT_OPTIONS = [
-  { value: 'latest', label: 'Latest' },
-  { value: 'popular', label: 'Popular' },
-  { value: 'oldest', label: 'Oldest' },
-];
-export default function VotesTabPanel() {
+export default function VotesTabPanel({ userId }) {
+  const [pollList, setPollList] = useState([]);
+
+  /* 사용자가 투표한 투표 목록 요청 */
+  const getVotesList = async () => {
+    const list = await getUserVotesList(userId);
+    setPollList(list);
+  };
+
+  useEffect(() => {
+    getVotesList();
+  }, []);
+
   return (
     <>
       <Container>
         <Grid container spacing={3}>
-          {posts.map((post, index) => (
-            <PollVoteCard key={post.id} post={post} index={index} />
-          ))}
+          {/* 투표자 익명 투표일 경우에는 숨김처리 (사용자 본인 프로필일 경우 X) */}
+          {pollList.map((poll, index) =>
+            !poll.voteAnonymousType || userId === getLoggedUserId() ? (
+              <PollVoteCard key={poll.voteId} poll={poll} index={index} />
+            ) : null
+          )}
         </Grid>
       </Container>
     </>

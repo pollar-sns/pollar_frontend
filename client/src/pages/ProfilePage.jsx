@@ -26,6 +26,8 @@ const style = {
 export default function ProfilePage() {
   const navigate = useNavigate();
   let { userId } = useParams();
+  const [profileId, setProfileId] = useState(userId);
+
   // 로그인되어있는 사용자의 Id
   const loggedUserId = getLoggedUserId();
   // 사용자 계정 정보
@@ -39,6 +41,7 @@ export default function ProfilePage() {
     if (typeof userId === 'undefined' || (loggedUserId && loggedUserId === userId)) {
       if (loggedUserId) {
         userId = loggedUserId;
+        setProfileId(loggedUserId);
         setIsOwnerAccount(true);
       } else {
         alert('잘못된 접근입니다. 로그인하세요');
@@ -79,7 +82,7 @@ export default function ProfilePage() {
               setTriggerRefresh={setTriggerRefresh}
             />
             <Box bgColor="white" minHeight="60vh">
-              <FeedTabs />
+              <FeedTabs userId={profileId} />
             </Box>
           </Card>
         </Container>
