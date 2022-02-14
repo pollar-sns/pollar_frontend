@@ -1,4 +1,4 @@
-import { Box, Card, Container, IconButton, Stack } from '@mui/material';
+import { Box, IconButton, Stack } from '@mui/material';
 
 import { useEffect, useState } from 'react';
 // todo 임시 UI 작업해놓은 것
