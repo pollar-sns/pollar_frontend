@@ -471,46 +471,51 @@ function SignupForm(props) {
             error={errorState.passwordRegex}
             helperText={errorState.passwordRegex && errorMsg.passwordRegex}
           />
-          <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2}>
-            <TextField
-              required
-              id="date"
-              type="date"
-              sx={{ width: 200 }}
-              onChange={(e) =>
-                setUser({
-                  ...user,
-                  userBirthday: e.target.value,
-                })
-              }
-              InputLabelProps={{
-                shrink: true,
-                required: true,
-              }}
-            />
-            <FormLabel id="gender-radio-group">Gender</FormLabel>
-            <RadioGroup
-              row
-              aria-labelledby="demo-controlled-radio-buttons-group"
-              name="controlled-radio-buttons-group"
-              value={user.userGender}
-              onChange={(e) =>
-                setUser({
-                  ...user,
-                  userGender: e.target.value,
-                })
-              }
-            >
-              <FormControlLabel value={false} control={<Radio />} label="Male" />
-              <FormControlLabel value={true} control={<Radio />} label="Female" />
-            </RadioGroup>
+          <Stack direction={{ xs: 'column', md: 'row' }} spacing={2}>
+            <Stack direction={{ xs: 'column', sm: 'row' }} alignItems="center" spacing={1}>
+              <FormLabel id="gender-radio-group">Birthday</FormLabel>
+              <TextField
+                required
+                id="date"
+                type="date"
+                sx={{ width: 200 }}
+                onChange={(e) =>
+                  setUser({
+                    ...user,
+                    userBirthday: e.target.value,
+                  })
+                }
+                InputLabelProps={{
+                  shrink: true,
+                  required: true,
+                }}
+              />
+            </Stack>
+            <Stack direction={{ xs: 'column', sm: 'row' }} alignItems="center" spacing={2}>
+              <FormLabel id="gender-radio-group">Gender</FormLabel>
+              <RadioGroup
+                row
+                aria-labelledby="demo-controlled-radio-buttons-group"
+                name="controlled-radio-buttons-group"
+                value={user.userGender}
+                onChange={(e) =>
+                  setUser({
+                    ...user,
+                    userGender: e.target.value,
+                  })
+                }
+              >
+                <FormControlLabel value={false} control={<Radio />} label="Male" />
+                <FormControlLabel value={true} control={<Radio />} label="Female" />
+              </RadioGroup>
+            </Stack>
           </Stack>
           {!user.userId ||
           !user.password ||
           !user.userNickname ||
           !user.userEmail ||
           !user.userBirthday ? (
-            <Button>필수 항목을 모두 작성해주세요</Button>
+            <Button variant="outlined">필수 항목을 모두 작성해주세요</Button>
           ) : tokenNumber.userEmail == user.userEmail && !tokenState.tokenValid ? (
             <Button fullWidth size="large" variant="contained" onClick={() => setConfirm(true)}>
               다음

@@ -12,9 +12,12 @@ const Input = styled('input')({
   display: 'none',
 });
 
-export default function ImageUploadButton({ size }) {
+export default function ImageUploadButton({ size, userId }) {
   // 로그인되어있는 사용자의 Id, 이미지 확인
-  const loggedUserId = getLoggedUserId();
+  //// const loggedUserId = getLoggedUserId();
+  let loggedUserId = getLoggedUserId();
+  if (typeof userId !== 'undefined') loggedUserId = userId;
+
   const loggedUserPhoto = getLoggedUserPhoto();
   console.log('==========================================');
   console.log('현재 로그인한 아이디: ' + loggedUserId);

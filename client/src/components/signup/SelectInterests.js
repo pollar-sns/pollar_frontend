@@ -155,7 +155,9 @@ export default function SelectInterests({ setConfirm, setUser, user }) {
             <CategoryGroup key={index} bigCategoryGroup={bigCategoryGroup} />
           ))}
         </Stack>
-        <Button onClick={handleCommit}>확인</Button>
+        <Button variant="contained" onClick={handleCommit} sx={{ marginTop: 5 }}>
+          선택완료
+        </Button>
       </Stack>
     </>
   );
