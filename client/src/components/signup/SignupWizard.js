@@ -10,7 +10,6 @@ import {
   Typography,
 } from '@mui/material';
 import SelectInterests from './SelectInterests';
-import RegisterForm from 'components/settings/ProfileInfoSettings';
 import SignupForm from './SignupForm';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 
@@ -77,8 +76,9 @@ export default function SignupWizard() {
       newSkipped.delete(activeStep);
     }
 
-    // 회원가입 완료 버튼 클릭
-    if (activeStep === steps.length - 1) {
+    // 회원가입 완료 버튼 클릭 (2단계: 관심분야 선택에서 회원가입 요청됨)
+    // if (activeStep === steps.length - 1) {
+    if (activeStep === 1) {
       console.log(user);
       console.log('회원가입 요청 ');
       handleSignup();
@@ -111,7 +111,7 @@ export default function SignupWizard() {
 
   const handleSignup = async () => {
     const result = await signup(user);
-    if (result.message == 'success') {
+    if (result == 'success') {
       setActiveStep((prevActiveStep) => prevActiveStep + 1);
     } else {
       alert('회원가입에 문제가 발생했습니다. 다시 시도해주세요.');
@@ -155,6 +155,7 @@ export default function SignupWizard() {
         {activeStep === steps.length ? (
           <Fragment>
             <Typography sx={{ mt: 2, mb: 1 }}>환영합니다! 회원가입이 완료되었습니다</Typography>
+            <ImageUploadButton size={'20rem'} />
             <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
               <Box sx={{ flex: '1 1 auto' }} />
               <Button onClick={handleNavigateLogin}>로그인하러 가기</Button>
@@ -168,11 +169,37 @@ export default function SignupWizard() {
               ) : activeStep === 1 ? (
                 <SelectInterests setConfirm={handleNext} setUser={setUser} user={user} />
               ) : (
-                <ImageUploadButton size={'20rem'} />
+                <Stack width="100%" spacing={3} alignItems="center">
+                  <Typography sx={{ mt: 2, mb: 1, width: '100%', textAlign: 'center' }}>
+                    환영합니다! 회원가입이 완료되었습니다
+                  </Typography>
+                  <ImageUploadButton size={'20rem'} userId={user.userId} />
+                  <Box
+                    sx={{
+                      display: 'flex',
+                      flexDirection: 'row',
+                      pt: 2,
+                    }}
+                  >
+                    {/* <Box sx={{ flex: '1 1 auto' }} /> */}
+                    <Button
+                      onClick={handleNavigateLogin}
+                      sx={{
+                        position: 'absolute',
+                        right: 0,
+                        bottom: 0,
+                        marginRight: 10,
+                        marginBottom: 5,
+                      }}
+                    >
+                      로그인하러 가기
+                    </Button>
+                  </Box>
+                </Stack>
               )}
             </Box>
 
-            <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
+            {/* <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
               <Button color="inherit" disabled={activeStep < 2} onClick={handleBack} sx={{ mr: 1 }}>
                 뒤로
               </Button>
@@ -186,7 +213,7 @@ export default function SignupWizard() {
               <Button onClick={handleNext}>
                 {activeStep === steps.length - 1 ? '회원가입 완료' : '확인'}
               </Button>
-            </Box>
+            </Box> */}
           </Fragment>
         )}
       </Card>
