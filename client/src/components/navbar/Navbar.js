@@ -24,6 +24,7 @@ import { getLoggedUserId } from 'utils/loggedUser';
 import { useEffect, useState } from 'react';
 import { getLoggedUserInfo } from 'utils/loggedUser';
 import NotificationsPopover from 'components/notification/NotificationsPopover';
+import { getUserInfo } from 'services/api/UserApi';
 
 // ----------------------------------------------------------------------
 
@@ -62,9 +63,17 @@ export default function Navbar({ onOpenSidebar, isFullLayout }) {
   // JWT 검사로 변경 필요
   const [loggedUserInfo, setLoggedUserInfo] = useState();
 
+  // 사용자 정보 변경 시 바로바로 반영되게끔 하기 위해 api를 매번 요청
+  const getUserAccountInfo = async () => {
+    const data = await getUserInfo(getLoggedUserId());
+    console.log(data);
+    setLoggedUserInfo(data);
+  };
+
   useEffect(() => {
     const localStorageUserInfo = getLoggedUserInfo();
     setLoggedUserInfo(localStorageUserInfo);
+    // getUserAccountInfo();
   }, [loggedUser]); //? 로그아웃 시, 감지를 하기 위해서 recoil을 deps에 추가하는 방식으로 설계함
 
   return (

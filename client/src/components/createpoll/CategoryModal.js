@@ -3,11 +3,12 @@ import { getAllCategories } from '../../services/api/CategoryApi';
 import { Alert, Box, Button, Chip, Collapse, IconButton, Stack, Typography } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 
-export default function SelectInterests({ setConfirm, setUser, user }) {
+export default function CategoryModal(props) {
+  const { vote, setVote, setVoteInterest, close, voteInterest } = props;
   // 전체 카테고리
   const [categoryList, setCategoryList] = useState([]);
   // 사용자 선택 관심분야 (초기값: 관심분야 수정일 경우)
-  const [interestList, setInterestList] = useState([]);
+  const [interestList, setInterestList] = useState(vote.voteCategories);
   // 관심분야 최대개수(3개) 초과 선택 시 Alert
   const [openLimitedAlert, setOpenLimitedAlert] = useState(false);
   // 중복된 관심분야 선택 시 Alert
@@ -16,10 +17,15 @@ export default function SelectInterests({ setConfirm, setUser, user }) {
   const handleCommit = () => {
     // setSelectedInterestList(interestList);
     // 관심분야 목록에서 id만 뽑아서 전달
-    const listCopy = interestList;
-    const categories = listCopy.map((item) => item.categoryId);
-    setUser({ ...user, categories });
-    setConfirm(categories);
+    const categories = interestList.map((item) => item.categoryId);
+    setVote({
+      ...vote,
+      voteCategories: categories,
+    });
+    // const categoryname = interestList.map((item) => item.categoryNameSmall);
+    setVoteInterest(interestList);
+    // setConfirm(categories);
+    close();
   };
 
   const getList = async () => {
@@ -38,27 +44,15 @@ export default function SelectInterests({ setConfirm, setUser, user }) {
   function CategoryGroup({ bigCategoryGroup }) {
     return (
       <Box>
-        <Typography
-          variant="body2"
-          align="left"
-          sx={{ color: 'text.secondary', mt: 1, pl: 1, mb: 0.5 }}
-        >
+        <Typography variant="body2" align="left" sx={{ color: 'text.secondary', mt: 1 }}>
           {bigCategoryGroup[0]}
         </Typography>
-        <Stack
-          overflow="auto"
-          whiteSpace="nowrap"
-          direction="row"
-          spacing={1}
-          // display="inline-flex"
-          sx={{ flexWrap: 'wrap' }}
-        >
+        <Stack direction="row" spacing={1} sx={{ flexWrap: 'wrap' }}>
           {bigCategoryGroup[1].map((item) => (
             <Chip
               key={item.categoryId}
               label={item.categoryNameSmall}
               onClick={() => selectCategory(item)}
-              sx={{ mb: 1 }}
             />
           ))}
         </Stack>
@@ -71,9 +65,9 @@ export default function SelectInterests({ setConfirm, setUser, user }) {
     const filteredList = interestList.filter(
       (item) => item.categoryNameSmall !== unselected.categoryNameSmall
     );
-    // 삭제한 카테고리는 다시 전체 목록에 반영
     setInterestList(filteredList);
-    // console.log(filteredList);
+    // 삭제한 카테고리는 다시 전체 목록에 반영
+    console.log(filteredList);
   };
 
   /* 관심분야 선택 추가 */
@@ -82,6 +76,7 @@ export default function SelectInterests({ setConfirm, setUser, user }) {
       setOpenLimitedAlert(true);
     } else {
       // 중복검사
+      // console.log(interestList);
       let existing = false;
       for (let i of interestList) {
         if (selected.categoryId === i.categoryId) {
@@ -95,16 +90,15 @@ export default function SelectInterests({ setConfirm, setUser, user }) {
   };
 
   useEffect(() => {
-    console.log(interestList);
-    setInterestList(interestList);
-    // setInterestList(user.categories);
     // 관심분야 목록 API 호출
     getList();
-  }, [user]);
+    //? 모달창을 다시 열었을 경우 기존에 선택한 카테고리들이 남아있도록 해야함
+    setInterestList(voteInterest);
+  }, [vote]);
 
   return (
     <>
-      <Stack>
+      <Stack sx={{ overflow: 'scroll' }}>
         <Collapse in={openLimitedAlert}>
           <Alert
             severity="error"
@@ -147,7 +141,7 @@ export default function SelectInterests({ setConfirm, setUser, user }) {
             이미 선택한 관심분야입니다.
           </Alert>
         </Collapse>
-        <Typography variant="body1" align="left" sx={{ color: 'text', mt: 3, mb: 1 }}>
+        <Typography variant="body1" align="left" sx={{ color: 'text.secondary', mt: 3, mb: 1 }}>
           선택한 관심분야
         </Typography>
         <Stack direction="row" spacing={1}>
@@ -160,7 +154,7 @@ export default function SelectInterests({ setConfirm, setUser, user }) {
             />
           ))}
         </Stack>
-        <Typography variant="body1" align="left" sx={{ color: 'text', mt: 3, mb: 1 }}>
+        <Typography variant="body1" align="left" sx={{ color: 'text.secondary', mt: 3, mb: 1 }}>
           카테고리 전체목록
         </Typography>
 
@@ -169,8 +163,9 @@ export default function SelectInterests({ setConfirm, setUser, user }) {
             <CategoryGroup key={index} bigCategoryGroup={bigCategoryGroup} />
           ))}
         </Stack>
-        <Button variant="contained" onClick={handleCommit} sx={{ marginTop: 5 }}>
-          선택완료
+        <br />
+        <Button onClick={handleCommit} variant="contained">
+          저장
         </Button>
       </Stack>
     </>

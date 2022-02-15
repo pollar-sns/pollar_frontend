@@ -3,14 +3,9 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
-import SelectInterests from '../signup/SelectInterests';
 import ProfileInfoSettings from './ProfileInfoSettings';
 import NotificationSettings from './NotificationSettings';
 import { useEffect, useState } from 'react';
-import { getUserInfo } from 'services/api/UserApi';
-import { getLoggedUserId } from 'utils/loggedUser';
-import { setUserInterests } from 'services/api/CategoryApi';
-import { getUserInterests } from 'services/api/CategoryApi';
 import InterestsSettings from './InterestsSettings';
 
 function TabPanel(props) {
@@ -25,8 +20,9 @@ function TabPanel(props) {
       {...other}
     >
       {value === index && (
-        <Box sx={{ p: 3 }}>
-          <Typography>{children}</Typography>
+        <Box sx={{ p: 5, alignItems: 'flex-end', justifyContent: 'center' }}>
+          {children}
+          {/* <Typography>{children}</Typography> */}
         </Box>
       )}
     </div>
@@ -48,46 +44,53 @@ function a11yProps(index) {
 export default function SettingsVerticalTab() {
   // 포커스 된 탭
   const [value, setValue] = useState(0);
-  const [userInfo, setUserInfo] = useState({
-    userId: '',
-    password: '',
-    userNickname: '',
-    userEmail: '',
-    userBirthday: '',
-    userGender: false,
-    categories: [],
-    userProfilePhoto: '',
-  });
+  // const [userInfo, setUserInfo] = useState({
+  //   userId: '',
+  //   password: '',
+  //   userNickname: '',
+  //   userEmail: '',
+  //   userBirthday: '',
+  //   userGender: false,
+  //   categories: [],
+  //   userProfilePhoto: '',
+  // });
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
 
   /* 사용자 계정 정보 API 호출 */
-  const getAccountUserInfo = async () => {
-    const data = await getUserInfo(getLoggedUserId());
-    // data.categories = await getUserInterests(getLoggedUserId());
-    setUserInfo(data);
-  };
+  // const getAccountUserInfo = async () => {
+  //   const data = await getUserInfo(getLoggedUserId());
+  //   // data.categories = await getUserInterests(getLoggedUserId());
+  //   setUserInfo(data);
+  // };
 
   /* 관심분야 재설정 */
-  const handleUpdateInterests = async () => {
-    const result = await setUserInterests(userInfo.categories);
-    if (result.message == 'success') {
-      // todo
-      alert('성공적으로 반영');
-    } else {
-      // todo
-      alert('오류가 발생했습니다. 잠시 후 시도해주세요 ');
-    }
-  };
+  // const handleUpdateInterests = async () => {
+  //   const result = await setUserInterests(userInfo.categories);
+  //   if (result.message == 'success') {
+  //     // todo
+  //     alert('성공적으로 반영');
+  //   } else {
+  //     // todo
+  //     alert('오류가 발생했습니다. 잠시 후 시도해주세요 ');
+  //   }
+  // };
 
   useEffect(() => {
-    getAccountUserInfo();
+    // getAccountUserInfo();
   }, []);
 
   return (
-    <Box sx={{ flexGrow: 1, bgcolor: 'transparent', display: 'flex', height: '50vh' }}>
+    <Box
+      sx={{
+        flexGrow: 1,
+        bgcolor: 'transparent',
+        display: 'flex',
+        // height: '50vh',
+      }}
+    >
       <Tabs
         orientation="vertical"
         variant="scrollable"
@@ -102,6 +105,8 @@ export default function SettingsVerticalTab() {
           borderBottomLeftRadius: 20,
           pl: 5,
           py: 5,
+          left: 0,
+          width: 'auto',
         }}
       >
         <Tab label="Profile Info&nbsp;" {...a11yProps(0)} />
@@ -109,16 +114,26 @@ export default function SettingsVerticalTab() {
         <Tab label="Notification&nbsp;" {...a11yProps(2)} />
       </Tabs>
       <TabPanel value={value} index={0}>
-        한주님 작업공간
+        <Typography variant="h5">프로필 수정</Typography>
+        <Typography variant="caption" color="text.secondary" sx={{ pl: 0 }}>
+          닉네임과 비밀번호를 수정가능합니다.
+        </Typography>
         <ProfileInfoSettings />
         {/* <CardProfile /> */}
       </TabPanel>
       <TabPanel value={value} index={1}>
-        관심분야 설정 (최대 3개까지 지정가능)
+        <Typography variant="h5">관심분야 설정</Typography>
+        <Typography variant="caption" color="text.secondary" sx={{ pl: 0 }}>
+          관심분야를 설정하고, 관련 투표들을 받아보세요! (최대 3개까지 지정가능)
+        </Typography>
+        {/* <Divider sx={{ minWidth: '100%' }} /> */}
         <InterestsSettings />
       </TabPanel>
       <TabPanel value={value} index={2}>
-        알림설정
+        <Typography variant="h5">알림 설정</Typography>
+        <Typography variant="caption" color="text.secondary" sx={{ pl: 0 }}>
+          전체 알림설정 및 세부 알림설정이 가능합니다.
+        </Typography>
         <NotificationSettings />
       </TabPanel>
     </Box>
