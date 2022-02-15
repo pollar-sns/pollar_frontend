@@ -22,6 +22,7 @@ import stringToColor from 'utils/stringToColor';
 import { fDateTimeSuffix } from 'utils/formatTime';
 import { useEffect, useState } from 'react';
 import { cancelPollVote } from 'services/api/PollApi';
+import { checkExpired } from 'utils/formatTime';
 
 // ----------------------------------------------------------------------
 
@@ -100,6 +101,7 @@ export default function PollVoteCard({ poll, isOwner }) {
     voteName,
     voteType,
     voteCreateTime,
+    voteExpiredTime,
     userAnonymousType,
     voteAnonymousType,
     voteCategoriesName,
@@ -240,7 +242,8 @@ export default function PollVoteCard({ poll, isOwner }) {
                   </Box>
                 ))}
               </InfoStyle>
-              {isOwner ? (
+              {/* 사용자 본인의 프로필인 경우 && 마감되지 않은 투표일 경우에만 투표취소 가능  */}
+              {isOwner && !checkExpired(voteExpiredTime) ? (
                 <Button
                   variant="text"
                   color="error"

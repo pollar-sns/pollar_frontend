@@ -57,15 +57,29 @@ export const emailToken = async (token) => {
 };
 
 /* 회원정보 수정 */
+export const modifyUserInfo = async (user) => {
+  const response = await instance.put(COMMON, {
+    userId: getLoggedUserId(),
+    userNickname: user.userNickname,
+  });
+  return response.data;
+};
+
+/* 비밀번호 수정 */
+export const modifyUserPw = async (newPassword) => {
+  const response = await instance.put(COMMON + '/modifypass', {
+    userId: getLoggedUserId(),
+    password: newPassword,
+  });
+  return response.data;
+};
 
 /* 회원 정보 불러오기 */
-export const getUserInfo = async () => {
-  const response = await createMultipartInstance().get(COMMON + `/info/${getLoggedUserId()}`);
-  // , {
-  //   params: {
-  //     userId: getLoggedUserId(),
-  //   },
-  // });
+export const getUserInfo = async (userId) => {
+  const response = await instance.get(COMMON + '/info' + `/${userId}`, {
+    profileUserId: userId,
+    loginUserId: getLoggedUserId(),
+  });
   return response.data;
 };
 
@@ -73,5 +87,5 @@ export const getUserInfo = async () => {
 // ProfileApi 에서 기본 유저 정보 호출해서 사용하기
 export const modifyProfilePhoto = async (formData) => {
   const response = await fileInstance.put(COMMON + '/photo', formData);
-  console.log(response);
+  return response.data;
 };

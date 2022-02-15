@@ -15,14 +15,10 @@ import {
   Typography,
   ListSubheader,
 } from '@mui/material';
-// utils
-// import { mockImgAvatar } from '../../utils/mockImages';
 // components
 import MenuPopover from '../../components/MenuPopover';
 import NotificationItem from './NotificationItem';
 import { getNotificationList, readNotifications } from 'services/api/NotificationApi';
-
-// todo Replace mock data with API
 // import NOTIFICATIONS from '../../_mocks_/notification';
 
 // ----------------------------------------------------------------------
@@ -42,24 +38,16 @@ export default function NotificationsPopover() {
   };
 
   const handleMarkAllAsRead = async () => {
-    // todo
     // 읽을 알림의 id 리스트
     const readList = notifications.slice(0, totalUnRead).map((item) => item.notificationId);
-    console.log(readList);
-    const result = await readNotifications(readList);
-    console.log(readList);
-
-    // setNotifications(
-    //   notifications.map((notification) => ({
-    //     ...notification,
-    //     isUnRead: false,
-    //   }))
-    // );
+    await readNotifications(readList);
+    // 갱신 (알림 목록 새로고침)
+    getList();
   };
 
   const getList = async () => {
     const data = await getNotificationList();
-    console.log(data);
+    // console.log(data);
     //// setNotifications(data.notificationList);
     // 전처리 후 저장) 알림 목록을 읽음 -> 안읽음 기준으로 정렬
     setNotifications(
@@ -72,8 +60,6 @@ export default function NotificationsPopover() {
   useEffect(() => {
     getList();
   }, []);
-
-  console.log(notifications);
 
   return (
     <>
@@ -103,11 +89,12 @@ export default function NotificationsPopover() {
         <Box sx={{ display: 'flex', alignItems: 'center', py: 2, px: 2.5 }}>
           <Box sx={{ flexGrow: 1 }}>
             <Typography variant="subtitle1">Notifications</Typography>
-            <Typography variant="body2" sx={{ color: 'text.secondary' }}>
+            <Typography component="span" variant="body2" sx={{ color: 'text.secondary' }}>
               You have{' '}
               <Typography
                 variant="body2"
                 display="inline"
+                component="span"
                 sx={{ color: 'text.info', fontWeight: 'bold' }}
               >
                 {totalUnRead}

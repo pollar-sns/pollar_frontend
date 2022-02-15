@@ -59,7 +59,9 @@ const INFO = {
 const SUCCESS = {
   lighter: '#E9FCD4',
   light: '#AAF27F',
-  main: '#b6b6d7',
+  // main: '#b6b6d7',
+  // main: '#54D62C',
+  main: '#229A16',
   dark: '#229A16',
   darker: '#08660D',
   contrastText: GREY[800],

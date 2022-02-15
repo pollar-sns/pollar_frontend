@@ -1,3 +1,4 @@
+import { Box, Container } from '@mui/material';
 import SelectInterests from 'components/signup/SelectInterests';
 import { useEffect, useState } from 'react';
 import { setUserInterests } from 'services/api/CategoryApi';
@@ -32,5 +33,9 @@ export default function InterestsSettings() {
     getAccountUserInfo();
   }, []);
 
-  return <SelectInterests setConfirm={handleUpdateInterests} setUser={setUser} user={user} />;
+  return (
+    <Box overflow="auto" sx={{ maxWidth: '600px' }}>
+      <SelectInterests setConfirm={handleUpdateInterests} setUser={setUser} user={user} />
+    </Box>
+  );
 }
