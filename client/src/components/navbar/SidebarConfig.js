@@ -27,6 +27,11 @@ const sidebarConfig = [
     path: '/polls',
     icon: getIcon(shoppingBagFill),
   },
+  {
+    title: 'Members',
+    path: '/users/all',
+    icon: getIcon(shoppingBagFill),
+  },
 ];
 
 export default sidebarConfig;

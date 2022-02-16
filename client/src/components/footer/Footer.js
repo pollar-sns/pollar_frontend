@@ -39,7 +39,7 @@ function Footer() {
                   fontWeight="regular"
                   opacity={0.8}
                   component={Link}
-                  href="https://www.pollar.com"
+                  href="https://www.pollar.live"
                   underline="none"
                   target="_parent"
                   rel="noreferrer"
@@ -54,7 +54,7 @@ function Footer() {
                   fontWeight="regular"
                   opacity={0.8}
                   component={Link}
-                  href="https://www.creative-tim.com/presentation"
+                  href="https://project.ssafy.com/home"
                   underline="none"
                   target="_block"
                   rel="noreferrer"
@@ -69,9 +69,9 @@ function Footer() {
                   fontWeight="regular"
                   opacity={0.8}
                   component={Link}
-                  href="/users/profile"
+                  href="/about"
                   underline="none"
-                  target="_blank"
+                  target="_parent"
                   rel="noreferrer"
                   color="text.disabled"
                 >
