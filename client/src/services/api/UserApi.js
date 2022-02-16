@@ -1,4 +1,5 @@
-import { instance, createMultipartInstance, fileInstance } from '../../services/axios';
+import { fileInstance } from '../../services/axios';
+import instance from 'services/axiosInstance';
 import { getLoggedUserId } from '../../utils/loggedUser';
 
 // 공통되는 경로는 다음과 같이 별도로 정의해둠

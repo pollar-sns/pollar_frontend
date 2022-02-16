@@ -10,8 +10,8 @@ import MobileHidden from '../common/MobileHidden';
 import Searchbar from './Searchbar';
 import AccountPopover from './AccountPopover';
 // recoil
-import { useRecoilState } from 'recoil';
-import { loggedUserState } from '../../atoms/atoms';
+import { useRecoilState, useRecoilValue } from 'recoil';
+import { isLoggedState, isUserInfoUpdatedState, loggedUserState } from '../../atoms/atoms';
 
 import { NavLogo } from './Logo';
 
@@ -58,8 +58,15 @@ Navbar.propTypes = {
 };
 
 export default function Navbar({ onOpenSidebar, isFullLayout }) {
-  const [loggedUser, setLoggedUser] = useRecoilState(loggedUserState);
-  //문제점: 새로고침 시 recoil state 날라감 (line 90)
+  // todo 삭제
+  // const [loggedUser, setLoggedUser] = useRecoilState(loggedUserState);
+  // 아래로 대체
+  const isLogged = useRecoilValue(isLoggedState);
+  // const [isUserInfoUpdated, setIsUserInfoUpdated] = useRecoilState(isUserInfoUpdatedState);
+  const isUserInfoUpdated = useRecoilValue(isUserInfoUpdatedState);
+
+  // (해결)
+  //// 문제점: 새로고침 시 recoil state 날라감 (line 90)
   // JWT 검사로 변경 필요
   const [loggedUserInfo, setLoggedUserInfo] = useState();
 
@@ -71,10 +78,21 @@ export default function Navbar({ onOpenSidebar, isFullLayout }) {
   };
 
   useEffect(() => {
+    // localStorage에서 정보 가져옴
     const localStorageUserInfo = getLoggedUserInfo();
-    setLoggedUserInfo(localStorageUserInfo);
+    // 로그인 상태라면, 사용자 정보를 가져옴
+    //? recoil만 사용했을 경우, 새로고침 시 데이터가 초기화되기 때문에, localstorage도 함께 검사
+    if (isLogged || localStorageUserInfo !== null) {
+      // localStorage에서 정보 반영
+      setLoggedUserInfo(localStorageUserInfo);
+      //// 갱신된 사용자정보 반영 후 check
+      //// setIsUserInfoUpdated(false);
+    } else {
+      // 로그아웃된 상태라면, 사용자 정보 초기화
+      setLoggedUserInfo();
+    }
     // getUserAccountInfo();
-  }, [loggedUser]); //? 로그아웃 시, 감지를 하기 위해서 recoil을 deps에 추가하는 방식으로 설계함
+  }, [isLogged, isUserInfoUpdated]); //? 로그아웃 시, 감지를 하기 위해서 recoil을 deps에 추가하는 방식으로 설계함
 
   return (
     <RootStyle sx={isFullLayout ? { backgroundColor: 'transparent' } : null}>
@@ -110,7 +128,7 @@ export default function Navbar({ onOpenSidebar, isFullLayout }) {
                 {loggedUserInfo ? (
                   <>
                     <NotificationsPopover />
-                    <AccountPopover account={loggedUserInfo} setLoggedUser={setLoggedUser} />
+                    <AccountPopover account={loggedUserInfo} />
                   </>
                 ) : (
                   <>

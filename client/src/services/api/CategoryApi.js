@@ -1,5 +1,5 @@
 import { getLoggedUserId } from 'utils/loggedUser';
-import { instance } from '../../services/axios';
+import instance from 'services/axiosInstance';
 
 const COMMON = '/category';
 
