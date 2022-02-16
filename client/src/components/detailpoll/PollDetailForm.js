@@ -139,7 +139,7 @@ export default function PollDetailForm({ poll, voteId }) {
     console.log();
   }, [pollResult]);
 
-  console.log(isLiked)
+  console.log(isLiked);
 
   return (
     <>

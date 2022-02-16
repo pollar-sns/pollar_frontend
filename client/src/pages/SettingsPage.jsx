@@ -5,6 +5,7 @@ import { isLoggedState } from 'atoms/atoms';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
+import { getLoggedUserId } from 'utils/loggedUser';
 
 const ContentStyle = styled('div')(({ theme }) => ({
   maxWidth: 880,
@@ -22,7 +23,7 @@ export default function SettingsPage() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!isLogged) {
+    if (!isLogged && getLoggedUserId() === null) {
       // todo
       alert('회원에게만 제공되는 서비스입니다. ');
       navigate('/users/login');
