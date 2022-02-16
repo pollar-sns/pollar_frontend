@@ -1,5 +1,5 @@
 import { Grid } from '@mui/material';
-import PollLikedCard from 'components/polls/PollLikedCard';
+import PollLikedCard from 'components/profile/PollLikedCard';
 import { useEffect, useState } from 'react';
 import { getUserLikesList } from 'services/api/ProfileApi';
 

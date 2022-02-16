@@ -1,5 +1,5 @@
-import { compareAsc, format, formatDistanceToNow } from 'date-fns';
-
+import { compareAsc, format, formatDistanceToNow, formatDistanceToNowStrict } from 'date-fns';
+import local from 'date-fns/locale/ko';
 // ----------------------------------------------------------------------
 
 export function fDate(date) {
@@ -16,9 +16,11 @@ export function fDateTimeSuffix(date) {
 }
 
 export function fToNow(date) {
-  return formatDistanceToNow(new Date(date), {
-    addSuffix: true,
-  });
+  // return formatDistanceToNow(new Date(date), {
+  //   addSuffix: true,
+  // });
+
+  return formatDistanceToNowStrict(new Date(date), { locale: local, addSuffix: true });
 }
 
 /**

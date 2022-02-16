@@ -9,7 +9,6 @@ import {
   Typography,
   Stack,
   ImageListItem,
-  CardActionArea,
 } from '@mui/material';
 import HowToVoteIcon from '@mui/icons-material/HowToVote';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
@@ -32,11 +31,10 @@ import PollImageButton from 'components/common/PollImageButton';
 import PollTextButton from 'components/common/PollTextButton';
 import { checkExpired, fDateTimeSuffix } from 'utils/formatTime';
 import Avatar from 'assets/theme/overrides/Avatar';
-import { fToNow } from 'utils/formatTime';
 
 /* 상황별로 탭의 배경색을 변경한다 */
 const pollBgCol = {
-  closedPoll: '#DFE3Ef',
+  closedPoll: '#000',
   default: '#fff',
   trending: '#219',
 };
@@ -93,16 +91,6 @@ export default function PollDetailCard({ poll }) {
     { number: voteParticipateCount, icon: HowToVoteIcon },
     { number: voteLikeCount, icon: FavoriteBorderIcon },
   ];
-
-  const chipStyle = {
-    fontSize: 10,
-    // padding: -10,
-    marginLeft: 1,
-    overflow: 'inherit',
-    '& .MuiChip-label': {
-      overflow: 'initial',
-    },
-  };
 
   /* '자세히 보기'를 클릭 시 투표 상세페이지로 이동 */
   const handleCardClick = () => {
@@ -169,37 +157,70 @@ export default function PollDetailCard({ poll }) {
     <>
       {/* <Grid item xs={12} sm={6} md={6}> */}
       <ImageListItem sx={{ width: '100%', paddingTop: 2, paddingX: 1 }}>
-        <Card
-          sx={{
-            backgroundColor: checkExpired(voteExpirationTime)
-              ? pollBgCol.closedPoll
-              : pollBgCol.default,
-          }}
-        >
+        <Card sx={{ backgroundColor: '#fff' }}>
           <CardContent>
             <Grid container spacing={2}>
               <Grid item xs={12} md={12}>
+                <Typography variant="caption" color="text.disabled" gutterBottom>
+                  {/* 작성일자 2020-12-09 ~ 마감시간 2020-12-29 */}
+                  {/* {voteCreateTime} ~ {voteExpirationTime} */}
+                  {fDateTimeSuffix(voteCreateTime)} ~ {fDateTimeSuffix(voteExpirationTime)}{' '}
+                </Typography>
+                {checkExpired(voteExpirationTime) ? (
+                  <Chip
+                    label="마감됨"
+                    color="default"
+                    size="small"
+                    sx={{
+                      fontSize: 10,
+                      padding: -10,
+                      overflow: 'inherit',
+                      '& .MuiChip-label': {
+                        overflow: 'initial',
+                      },
+                    }}
+                  />
+                ) : isUserVoted ? (
+                  <Chip
+                    label="투표완료"
+                    color="primary"
+                    size="small"
+                    sx={{
+                      fontSize: 10,
+                      padding: -10,
+                      overflow: 'inherit',
+                      '& .MuiChip-label': {
+                        overflow: 'initial',
+                      },
+                    }}
+                  />
+                ) : (
+                  <Chip
+                    label="투표가능"
+                    color="info"
+                    size="small"
+                    sx={{
+                      fontSize: 10,
+                      padding: -10,
+                      overflow: 'inherit',
+                      '& .MuiChip-label': {
+                        overflow: 'initial',
+                      },
+                    }}
+                  />
+                )}
                 <Stack direction="row" justifyContent="space-between">
-                  <Stack direction="row" spacing={0.5} justifyContent="center" mb={1}>
-                    {voteCategoriesName.length > 0
-                      ? voteCategoriesName.map((item, index) => (
-                          <Chip
-                            key={index}
-                            label={item}
-                            size="small"
-                            sx={{
-                              fontSize: 12,
-                              overflow: 'inherit',
-                              '& .MuiChip-label': {
-                                overflow: 'initial',
-                              },
-                            }}
-                            // color="info"
-                            overflow="inherit"
-                            variant="outlined"
-                          />
-                        ))
-                      : null}
+                  {/* <Avatar alt="user profile photo" src={'user'} onClick={() => {}} /> */}
+                  {/* Poll Title */}
+                  <Stack direction="column" alignItems="baseline" spacing={0}>
+                    <Typography variant="h5" component="div">
+                      {voteName}
+                    </Typography>
+                    <Typography variant="caption" color="text.disabled">
+                      {userAnonymousType ? '작성자익명' : null}
+                      {userAnonymousType && voteAnonymousType ? ' | ' : null}
+                      {voteAnonymousType ? '투표자익명' : null}
+                    </Typography>
                   </Stack>
 
                   <Box>
@@ -216,24 +237,15 @@ export default function PollDetailCard({ poll }) {
                   </Box>
                 </Stack>
 
-                <CardActionArea onClick={handleCardClick}>
-                  <Stack direction="column" alignItems="baseline" spacing={0}>
-                    <Typography variant="h5" component="div" textAlign="center" width="100%">
-                      {voteName}
-                    </Typography>
-                    {/*//! 여기 부분은 다르게! 익명투표 여부만 표현하자. */}
-                    <Typography variant="caption" color="text.disabled" width="100%" mb={2}>
-                      {/* {userAnonymousType ? '작성자익명' : null} */}
-                      {/* {userAnonymousType && voteAnonymousType ? ' | ' : null} */}
-                      {voteAnonymousType ? '익명투표' : null}
-                    </Typography>
-                  </Stack>
-
-                  <Typography variant="body2" sx={{ fontSize: 14, textAlign: 'left' }}>
-                    {/* 투표내용... (최대 100자) */}
-                    {voteContent}
-                  </Typography>
-                </CardActionArea>
+                {voteCategoriesName.length > 0
+                  ? voteCategoriesName.map((item, index) => {
+                      <Chip key={index} label={item} size="small" sx={{ fontSize: 12 }} />;
+                    })
+                  : null}
+                <Typography variant="body2" sx={{ fontSize: 14, textAlign: 'left' }}>
+                  {/* 투표내용... (최대 100자) */}
+                  {voteContent}
+                </Typography>
               </Grid>
               <Grid item xs={12} md={12}>
                 {voteType ? (
@@ -247,10 +259,9 @@ export default function PollDetailCard({ poll }) {
                           setPollVotedState={handleVoteClick}
                           isSelectedVote={item.selectionId === userVoteSelection}
                           voteResultPercentage={
-                            //? 총 투표수가 0인 경우 오류 방지
-                            typeof pollResult !== 'undefined' && pollResult.total > 0
+                            typeof pollResult !== 'undefined'
                               ? (pollResult.selectionCountsList[index] * 100) / pollResult.total
-                              : 0
+                              : null
                           }
                         />
                       ))}
@@ -269,10 +280,9 @@ export default function PollDetailCard({ poll }) {
                               isSelectedVote={item.selectionId === userVoteSelection}
                               // 투표 마감 상태의 경우에는 투표하지 않았을 경우 결과 보여주지 않음
                               voteResultPercentage={
-                                //? 총 투표수가 0인 경우 오류 방지
-                                typeof pollResult !== 'undefined' && pollResult.total > 0
+                                typeof pollResult !== 'undefined'
                                   ? (pollResult.selectionCountsList[index] * 100) / pollResult.total
-                                  : 0
+                                  : null
                               }
                               //// sx={{ width: '100%', height: 'auto' }}
                             />
@@ -303,22 +313,9 @@ export default function PollDetailCard({ poll }) {
                   </Box>
                 ))}
               </InfoStyle>
-              <Stack direction="row" alignItems="baseline">
-                <Typography variant="caption" color="text.disabled" gutterBottom>
-                  {fToNow(voteExpirationTime).replace('후', '남음')}
-                  {/* {fDateTimeSuffix(voteCreateTime)} ~ {fDateTimeSuffix(voteExpirationTime)}{' '} */}
-                </Typography>
-                {checkExpired(voteExpirationTime) ? (
-                  <Chip label="마감됨" color="default" size="small" sx={chipStyle} />
-                ) : isUserVoted ? (
-                  <Chip label="투표완료" color="primary" size="small" sx={chipStyle} />
-                ) : (
-                  <Chip label="투표가능" color="info" size="small" sx={chipStyle} />
-                )}
-              </Stack>
-              {/* <Button size="small" color="secondary" onClick={handleCardClick}>
+              <Button size="small" color="secondary" onClick={handleCardClick}>
                 자세히 보기
-              </Button> */}
+              </Button>
             </Stack>
           </CardContent>
 
