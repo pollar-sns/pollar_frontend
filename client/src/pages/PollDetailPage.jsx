@@ -18,14 +18,6 @@ export default function PollDetailPage() {
   const isLogged = useRecoilValue(isLoggedState);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    if (!isLogged && getLoggedUserId() === null) {
-      // todo
-      alert('회원에게만 제공되는 서비스입니다. ');
-      navigate('/users/login');
-    }
-  }, []);
-
   let { id } = useParams(); // url에 있는 path variable을 가져옴
   const [voteInfo, setVoteInfo] = useState(undefined);
   const [categories, setCategories] = useState(undefined);
@@ -43,8 +35,14 @@ export default function PollDetailPage() {
   };
 
   useEffect(() => {
-    getVote();
-    loadReply();
+    if (!isLogged && getLoggedUserId() === null) {
+      // todo
+      alert('회원에게만 제공되는 서비스입니다. ');
+      navigate('/users/login');
+    } else {
+      getVote();
+      loadReply();
+    }
   }, [id]);
 
   return (
@@ -60,8 +58,12 @@ export default function PollDetailPage() {
               overflowY: 'scroll', // added scroll
             }}
           >
-            <PollDetailCard poll={voteInfo} voteId={id} />
-            <ReplyForm replies={replies} />
+            {voteInfo ? (
+              <>
+                <PollDetailCard poll={voteInfo} voteId={id} />
+                <ReplyForm replies={replies} />
+              </>
+            ) : null}
           </Box>
         </Card>
       </Stack>
