@@ -30,6 +30,7 @@ import SharePollDialog from 'components/common/SharePollDialog';
 import PollImageButton from 'components/common/PollImageButton';
 import PollTextButton from 'components/common/PollTextButton';
 import { checkExpired, fDateTimeSuffix } from 'utils/formatTime';
+import Avatar from 'assets/theme/overrides/Avatar';
 
 /* 상황별로 탭의 배경색을 변경한다 */
 const pollBgCol = {
@@ -209,8 +210,9 @@ export default function PollDetailCard({ poll }) {
                   />
                 )}
                 <Stack direction="row" justifyContent="space-between">
+                  <Avatar alt="user profile photo" src={'user'} onClick={() => {}} />
                   {/* Poll Title */}
-                  <Stack direction="row" alignItems="baseline" spacing={1}>
+                  <Stack direction="column" alignItems="baseline" spacing={0}>
                     <Typography variant="h5" component="div">
                       {voteName}
                     </Typography>
@@ -240,7 +242,7 @@ export default function PollDetailCard({ poll }) {
                       <Chip key={index} label={item} size="small" sx={{ fontSize: 12 }} />;
                     })
                   : null}
-                <Typography variant="body2" sx={{ fontSize: 14 }}>
+                <Typography variant="body2" sx={{ fontSize: 14, textAlign: 'left' }}>
                   {/* 투표내용... (최대 100자) */}
                   {voteContent}
                 </Typography>

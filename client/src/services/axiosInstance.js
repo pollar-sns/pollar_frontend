@@ -33,16 +33,16 @@ axiosInstance.interceptors.response.use(
     console.log(response);
     return response;
   },
-  (error) => {
+  function (error) {
     console.log(error);
-    if (error.response) {
-      switch (error.response.status) {
-        case 401:
-          alert('재로그인하세요');
-          logout();
-      }
-    }
-    return Promise.reject(error.response.data);
+    // if (error.response) {
+    //   switch (error.response.status) {
+    //     case 401:
+    //       alert('재로그인하세요');
+    //       logout();
+    //   }
+    // }
+    // return Promise.reject(error.response.data);
   }
 );
 
