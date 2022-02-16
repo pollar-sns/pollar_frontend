@@ -1,3 +1,5 @@
+// import PollDetailCard from 'components/profile/PollDetailCard';
+//todo 프로필 없는 버전, 투표 삭제 없는 버전
 import PollDetailCard from 'components/polls/PollDetailCard';
 
 import { Grid, ImageList, Typography } from '@mui/material';

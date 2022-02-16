@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
 import './tempstyle.css';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
-import PollTrendingCard from 'components/polls/PollTrendingCard';
+import PollTrendingCard from 'components/trending/PollTrendingCard';
 import { getTrendingPollList } from 'services/api/PollApi';
 
 export default function TrendingPollsSlider() {
