@@ -3,6 +3,11 @@ import PollListTabs from 'components/polls/PollListTabs';
 import Page from 'components/Page';
 import { Card, Grid, Stack, Typography } from '@mui/material';
 import GradAnimatedButton from 'components/common/GradAnimatedButton';
+import { isLoggedState } from 'atoms/atoms';
+import { atom, selector, useRecoilValue } from 'recoil';
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import UserProfileCard from '../components/user/UserProfileCard';
 
 const RootStyle = styled(Page)(({ theme }) => ({
   // paddingLeft: 100,
@@ -14,6 +19,18 @@ const RootStyle = styled(Page)(({ theme }) => ({
 }));
 
 export default function PollsPage() {
+  // 로그인된 사용자만 사용가능 (recoil state watch하자)
+  const isLogged = useRecoilValue(isLoggedState);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!isLogged) {
+      // todo
+      alert('회원에게만 제공되는 서비스입니다. ');
+      navigate('/users/login');
+    }
+  }, []);
+
   return (
     <>
       <RootStyle title="Polls">
@@ -26,7 +43,7 @@ export default function PollsPage() {
           <GradAnimatedButton href="/polls/create" sx={{ width: 'max-content', mt: 2 }}>
             <Typography variant="subtitle2">&nbsp;+&nbsp;Create A Poll&nbsp;&nbsp;</Typography>
           </GradAnimatedButton>
-          <Card sx={{ padding: 5 }}>(사용자 프로필 정보)</Card>
+          <UserProfileCard />
         </Stack>
         {/* </Grid> */}
         <Grid

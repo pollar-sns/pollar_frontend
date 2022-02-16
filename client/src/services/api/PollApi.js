@@ -1,9 +1,5 @@
-import {
-  instance,
-  createMultipartInstance,
-  fileInstance,
-  createIntstanceWithAuth,
-} from '../../services/axios';
+import { createMultipartInstance, fileInstance } from '../../services/axios';
+import instance from 'services/axiosInstance';
 import { getLoggedUserId } from '../../utils/loggedUser';
 
 const COMMON = '/vote';
@@ -88,7 +84,7 @@ export const voteImageCreate = async (form) => {
 
 /* 투표 '좋아요' 등록 */
 export const requestPollLike = async (voteId) => {
-  const response = await createIntstanceWithAuth().post(COMMON + '/like', {
+  const response = await instance.post(COMMON + '/like', {
     userId: getLoggedUserId(),
     voteId,
   });
@@ -97,7 +93,7 @@ export const requestPollLike = async (voteId) => {
 
 /* 투표 '좋아요' 해제 */
 export const requestPollUnlike = async (voteId) => {
-  const response = await createIntstanceWithAuth().delete(COMMON + '/like', {
+  const response = await instance.delete(COMMON + '/like', {
     //? axios에서의 DELETE는 다음과 같이 'data' key에 body를 담아서 보내야 함
     data: { userId: getLoggedUserId(), voteId },
   });
@@ -106,22 +102,29 @@ export const requestPollUnlike = async (voteId) => {
 
 /* 유저가 투표 선택지에 투표 */
 export const requestPollVote = async (selectionId) => {
-  const response = await createIntstanceWithAuth().post(
-    COMMON + `/${getLoggedUserId()}/${selectionId}`
-  );
+  const response = await instance.post(COMMON + `/${getLoggedUserId()}/${selectionId}`);
   return response.data;
 };
 
 /* 유저가 투표 선택지에 투표 취소 */
 export const cancelPollVote = async (selectionId) => {
-  const response = await createIntstanceWithAuth().delete(
-    COMMON + `/${getLoggedUserId()}/${selectionId}`
-  );
+  const response = await instance.delete(COMMON + `/${getLoggedUserId()}/${selectionId}`);
   return response.data;
 };
 
 /* (투표시 결과 디스플레이) 투표 총 참여자 수, 선택지 별 참여자 수 */
 export const getPollSelectionStatus = async (voteId) => {
-  const response = await createIntstanceWithAuth().get(COMMON + `/${voteId}/vparcount`);
+  const response = await instance.get(COMMON + `/${voteId}/vparcount`);
+  return response.data;
+};
+
+/* 투표 피드 상세 정보 */
+export const getVoteInfo = async (voteId) => {
+  // voteId를 pathvariable로 보내서 vote dto를 받아옴
+  const response = await instance.get(COMMON + `/${voteId}`, {
+    params: {
+      voteId,
+    },
+  });
   return response.data;
 };

@@ -17,7 +17,6 @@ import FavoriteRoundedIcon from '@mui/icons-material/FavoriteRounded';
 import FavoriteBorderRoundedIcon from '@mui/icons-material/FavoriteBorderRounded';
 import ShareIcon from '@mui/icons-material/Share';
 import styled from '@emotion/styled';
-
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import {
@@ -25,19 +24,11 @@ import {
   requestPollUnlike,
   getPollSelectionStatus,
   cancelPollVote,
-} from 'services/api/PollApi';
-import SharePollDialog from 'components/common/SharePollDialog';
-import PollImageButton from 'components/common/PollImageButton';
-import PollTextButton from 'components/common/PollTextButton';
-import { checkExpired, fDateTimeSuffix } from 'utils/formatTime';
-import Avatar from 'assets/theme/overrides/Avatar';
-
-/* 상황별로 탭의 배경색을 변경한다 */
-const pollBgCol = {
-  closedPoll: '#000',
-  default: '#fff',
-  trending: '#219',
-};
+} from '../../services/api/PollApi';
+import SharePollDialog from '../common/SharePollDialog';
+import PollImageButton from '../common/PollImageButton';
+import PollTextButton from '../common/PollTextButton';
+import { checkExpired, fDateTimeSuffix } from '../../utils/formatTime';
 
 const InfoStyle = styled('div')(({ theme }) => ({
   display: 'flex',
@@ -47,11 +38,10 @@ const InfoStyle = styled('div')(({ theme }) => ({
   color: theme.palette.text.disabled,
 }));
 
-export default function PollDetailCard({ poll }) {
+export default function PollDetailForm({ poll, voteId }) {
   const navigate = useNavigate();
 
   const {
-    voteId,
     voteName,
     voteContent,
     voteType,
@@ -115,11 +105,7 @@ export default function PollDetailCard({ poll }) {
 
   /* 투표하기 */
   function handleVoteClick(state) {
-    console.log(state);
-    // 투표 선택 정보 전송
-    // const result = await requestPollVote(selectionId);
-    // console.log(result);
-    // if (result === 'success') setSelectedItem(selectionId);
+    // console.log(state);
     // 투표 결과 디스플레이 요청
     setIsVoted(state);
   }
@@ -152,6 +138,8 @@ export default function PollDetailCard({ poll }) {
   useEffect(() => {
     console.log();
   }, [pollResult]);
+
+  console.log(isLiked)
 
   return (
     <>
@@ -210,9 +198,8 @@ export default function PollDetailCard({ poll }) {
                   />
                 )}
                 <Stack direction="row" justifyContent="space-between">
-                  {/* <Avatar alt="user profile photo" src={'user'} onClick={() => {}} /> */}
                   {/* Poll Title */}
-                  <Stack direction="column" alignItems="baseline" spacing={0}>
+                  <Stack direction="row" alignItems="baseline" spacing={1}>
                     <Typography variant="h5" component="div">
                       {voteName}
                     </Typography>
@@ -242,7 +229,7 @@ export default function PollDetailCard({ poll }) {
                       <Chip key={index} label={item} size="small" sx={{ fontSize: 12 }} />;
                     })
                   : null}
-                <Typography variant="body2" sx={{ fontSize: 14, textAlign: 'left' }}>
+                <Typography variant="body2" sx={{ fontSize: 14 }}>
                   {/* 투표내용... (최대 100자) */}
                   {voteContent}
                 </Typography>
