@@ -9,6 +9,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import UserProfileCard from '../components/user/UserProfileCard';
 import { getLoggedUserId } from 'utils/loggedUser';
+import { checkUserLogged } from 'utils/loggedUser';
 
 const RootStyle = styled(Page)(({ theme }) => ({
   // paddingLeft: 100,
@@ -25,7 +26,7 @@ export default function PollsPage() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!isLogged && getLoggedUserId() === null) {
+    if (!isLogged && !checkUserLogged()) {
       // todo
       alert('회원에게만 제공되는 서비스입니다. ');
       navigate('/users/login');

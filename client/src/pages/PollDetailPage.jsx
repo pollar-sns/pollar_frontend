@@ -10,7 +10,7 @@ import ReplyForm from '../components/detailpoll/ReplyForm';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 import { isLoggedState } from '../atoms/atoms';
-import { getLoggedUserId } from '../utils/loggedUser';
+import { checkUserLogged, getLoggedUserId } from '../utils/loggedUser';
 import PollDetailCard from '../components/detailpoll/PollDetailForm';
 
 export default function PollDetailPage() {
@@ -35,7 +35,7 @@ export default function PollDetailPage() {
   };
 
   useEffect(() => {
-    if (!isLogged && getLoggedUserId() === null) {
+    if (!isLogged && !checkUserLogged()) {
       // todo
       alert('회원에게만 제공되는 서비스입니다. ');
       navigate('/users/login');

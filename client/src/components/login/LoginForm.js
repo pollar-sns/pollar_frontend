@@ -35,7 +35,7 @@ export default function LoginForm() {
   const [openAlert, setOpenAlert] = useState(false);
 
   // todo 삭제
-  const setLoggedUserState = useSetRecoilState(loggedUserState);
+  //// const setLoggedUserState = useSetRecoilState(loggedUserState);
   // 이것으로 대체 (사용자 정보는 localStorage(or sessionStorage)에서 꺼내올 것)
   const setIsLoggedState = useSetRecoilState(isLoggedState);
 
@@ -67,14 +67,14 @@ export default function LoginForm() {
       const result = await login(loginInfo);
       console.log(result);
       if (result.message == 'success') {
-        // 로그인 성공한 userId와, response로 온 userNickname을 atom에 저장
-        setLoggedUserState({
-          userId: loginInfo.userId,
-          userNickname: result.userNickname,
-        });
+        // // 로그인 성공한 userId와, response로 온 userNickname을 atom에 저장
+        // setLoggedUserState({
+        //   userId: loginInfo.userId,
+        //   userNickname: result.userNickname,
+        // });
         setIsLoggedState(true);
         // 이전으로 돌아갈 수 있어야 하므로 history 유지
-        navigate('/');
+        navigate(-1);
         //// navigate('/', { replace: true });
       } else {
         setOpenAlert(true);
