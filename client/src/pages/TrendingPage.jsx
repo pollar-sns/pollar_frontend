@@ -1,22 +1,8 @@
 import { Container, Grid, Typography } from '@mui/material';
 import { isLoggedState } from 'atoms/atoms';
 import TrendingPollsSlider from 'components/trending/TrendingPollsSlider';
-import { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useRecoilValue } from 'recoil';
-import { getLoggedUserId } from 'utils/loggedUser';
 
 export default function TrendingPage() {
-  // 로그인된 사용자인지 여부
-  const isLogged = useRecoilValue(isLoggedState);
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    if (!isLogged && getLoggedUserId() === null) {
-      console.log('로그인한 사용자. 투표 가능');
-    }
-  }, [isLogged]);
-
   return (
     <>
       <Container maxWidth="lg" sx={{ height: '70vh' }}>

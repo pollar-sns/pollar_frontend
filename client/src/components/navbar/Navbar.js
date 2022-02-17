@@ -25,6 +25,7 @@ import { useEffect, useState } from 'react';
 import { getLoggedUserInfo } from 'utils/loggedUser';
 import NotificationsPopover from 'components/notification/NotificationsPopover';
 import { getUserInfo } from 'services/api/UserApi';
+import { checkUserLogged } from 'utils/loggedUser';
 
 // ----------------------------------------------------------------------
 
@@ -82,7 +83,7 @@ export default function Navbar({ onOpenSidebar, isFullLayout }) {
     const localStorageUserInfo = getLoggedUserInfo();
     // 로그인 상태라면, 사용자 정보를 가져옴
     //? recoil만 사용했을 경우, 새로고침 시 데이터가 초기화되기 때문에, localstorage도 함께 검사
-    if (isLogged || localStorageUserInfo !== null) {
+    if (isLogged || checkUserLogged()) {
       // localStorage에서 정보 반영
       setLoggedUserInfo(localStorageUserInfo);
       //// 갱신된 사용자정보 반영 후 check

@@ -19,7 +19,7 @@ instance.interceptors.request.use(
     const user = JSON.parse(localStorage.getItem('user'));
     // 토큰(JWT)이 존재하는 경우
     if (user && user.accessToken) {
-      console.log('토큰 존재. Header에 jwt 담아서 보냅니다');
+      // console.log('토큰 존재. Header에 jwt 담아서 보냅니다');
       // For Spring Boot back-end
       config.headers.Authorization = 'Bearer ' + user.accessToken;
     }
@@ -55,6 +55,11 @@ instance.interceptors.response.use(
           logout();
           break;
       }
+    } else {
+      // ex. 서버 키지 않은 경우
+      console.log('서버 안킴', error);
+      history.push('/error/500');
+      window.location.reload();
     }
     // return Promise.reject(error.response.data);
   }

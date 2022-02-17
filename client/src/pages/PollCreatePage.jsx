@@ -6,6 +6,7 @@ import { useRecoilValue } from 'recoil';
 
 import { Box, Container, Typography, Card } from '@mui/material';
 import { getLoggedUserId } from 'utils/loggedUser';
+import { checkUserLogged } from 'utils/loggedUser';
 
 export default function PollCreatePage() {
   // 로그인된 사용자만 사용가능 (recoil state watch하자)
@@ -13,7 +14,7 @@ export default function PollCreatePage() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!isLogged && getLoggedUserId() === null) {
+    if (!isLogged && !checkUserLogged()) {
       // todo
       alert('회원에게만 제공되는 서비스입니다. ');
       navigate('/users/login');
