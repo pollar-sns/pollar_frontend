@@ -1,4 +1,4 @@
-import { createMultipartInstance, fileInstance } from '../../services/axios';
+import { createMultipartInstance } from '../../services/axios';
 import instance from 'services/axiosInstance';
 import { getLoggedUserId } from '../../utils/loggedUser';
 
@@ -15,24 +15,6 @@ export const getTotalVotesCount = async (userId) => {
   const response = await createMultipartInstance().get(COMMON + `/${userId}/uparcount`);
   return response.data;
 };
-
-// /* 유저가 업로드한 투표 리스트 */
-// export const getUserUploadsList = async (userId) => {
-//   const response = await createMultipartInstance().get(COMMON + `/${userId}/uvotelist`);
-//   return response.data;
-// };
-
-// /* 유저가 참여한 투표 리스트 */
-// export const getUserVotesList = async (userId) => {
-//   const response = await createMultipartInstance().get(COMMON + `/${userId}/uparlist`);
-//   return response.data;
-// };
-
-// /* 유저가 '좋아요' 누른 투표 리스트 */
-// export const getUserLikesList = async (userId) => {
-//   const response = await createMultipartInstance().get(COMMON + `/${userId}/ulikelist`);
-//   return response.data;
-// };
 
 /* Trending(인기) 투표 리스트 */
 export const getTrendingPollList = async () => {
@@ -120,11 +102,11 @@ export const getPollSelectionStatus = async (voteId) => {
 
 /* 투표 피드 상세 정보 */
 export const getVoteInfo = async (voteId) => {
-  // voteId를 pathvariable로 보내서 vote dto를 받아옴
-  const response = await instance.get(COMMON + `/${voteId}`, {
-    params: {
-      voteId,
-    },
-  });
+  const userId = getLoggedUserId();
+  let params;
+  if (typeof userId !== 'undefined') {
+    params = { params: { userId } };
+  }
+  const response = await instance.get(COMMON + `/${voteId}`, params);
   return response.data;
 };

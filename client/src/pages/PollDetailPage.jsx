@@ -47,7 +47,15 @@ export default function PollDetailPage() {
 
   return (
     <>
-      <Stack direction="row">
+      <Stack direction="row" spacing={5}>
+        {/* <Detail vote={voteInfo} /> */}
+        {/* <PollDetailForm vote={voteInfo} /> */}
+        {voteInfo ? (
+          <PollDetailCard poll={voteInfo} isLoggedUser={isLogged || checkUserLogged()} />
+        ) : null}
+        {replies ? <ReplyForm replies={replies} /> : null}
+      </Stack>
+      {/* <Stack direction="row">
         <Card>
           <Box
             component="div"
@@ -66,7 +74,7 @@ export default function PollDetailPage() {
             ) : null}
           </Box>
         </Card>
-      </Stack>
+      </Stack> */}
     </>
   );
 }

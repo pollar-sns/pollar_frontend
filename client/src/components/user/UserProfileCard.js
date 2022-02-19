@@ -1,12 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import profilePicture from '../../assets/images/profile.jpeg';
-import { Button, Card, Grid, Stack, Typography, Avatar, Container } from '@mui/material';
-import styled from '@emotion/styled';
-import MobileHidden from '../common/MobileHidden';
+import { Card, Grid, Stack, Typography, Avatar } from '@mui/material';
 import { getProfileInfo } from '../../services/api/ProfileApi';
 import { getLoggedUserId } from '../../utils/loggedUser';
-import { useNavigate, useParams } from 'react-router-dom';
 import { getTotalUploadsCount, getTotalVotesCount } from '../../services/api/PollApi';
+// import MobileHidden from '../common/MobileHidden';
 
 export default function UserProfileCard() {
   // 닉네임, 아이디, 좋아요수, 총투표수
@@ -49,7 +46,6 @@ export default function UserProfileCard() {
             height: 'auto',
             justifyContent: 'center',
             alignItems: 'center',
-            
           }}
         >
           <Grid container spacing={1} justify="center" align="center">

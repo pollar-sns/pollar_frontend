@@ -9,7 +9,6 @@ import PollTrendingCard from 'components/trending/PollTrendingCard';
 import { getTrendingPollList } from 'services/api/PollApi';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
-import { getLoggedUserId } from 'utils/loggedUser';
 import { isLoggedState } from 'atoms/atoms';
 import { checkUserLogged } from 'utils/loggedUser';
 
@@ -27,7 +26,6 @@ export default function TrendingPollsSlider() {
   /* Trending(인기) 투표 목록 요청 */
   const getPollList = async () => {
     const list = await getTrendingPollList();
-    console.log(list);
     setPollList(list);
   };
 
@@ -44,17 +42,7 @@ export default function TrendingPollsSlider() {
   // }, []);
 
   useEffect(() => {
-    // todo 콘솔 찍어보는 용으로 아래 쓰고, 이 아래부분으로 간결하게 대체
-    // setIsLoggedUser(isLogged || !checkUserLogged());
-    if (!isLogged && !checkUserLogged()) {
-      console.log(
-        '로그인안한 사용자. 투표 불가능 / 좋아요 불가능 / 클릭 시 로그인 창으로 redirect'
-      );
-      setIsLoggedUser(false);
-    } else {
-      console.log('로그인한 사용자. 투표 가능');
-      setIsLoggedUser(true);
-    }
+    setIsLoggedUser(isLogged || checkUserLogged());
     getPollList();
   }, [isLogged]);
 

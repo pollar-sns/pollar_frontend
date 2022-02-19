@@ -5,7 +5,7 @@ import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import ProfileInfoSettings from './ProfileInfoSettings';
 import NotificationSettings from './NotificationSettings';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import InterestsSettings from './InterestsSettings';
 
 function TabPanel(props) {
@@ -20,10 +20,7 @@ function TabPanel(props) {
       {...other}
     >
       {value === index && (
-        <Box sx={{ p: 5, alignItems: 'flex-end', justifyContent: 'center' }}>
-          {children}
-          {/* <Typography>{children}</Typography> */}
-        </Box>
+        <Box sx={{ p: 5, alignItems: 'flex-end', justifyContent: 'center' }}>{children}</Box>
       )}
     </div>
   );
@@ -44,43 +41,10 @@ function a11yProps(index) {
 export default function SettingsVerticalTab() {
   // 포커스 된 탭
   const [value, setValue] = useState(0);
-  // const [userInfo, setUserInfo] = useState({
-  //   userId: '',
-  //   password: '',
-  //   userNickname: '',
-  //   userEmail: '',
-  //   userBirthday: '',
-  //   userGender: false,
-  //   categories: [],
-  //   userProfilePhoto: '',
-  // });
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
-
-  /* 사용자 계정 정보 API 호출 */
-  // const getAccountUserInfo = async () => {
-  //   const data = await getUserInfo(getLoggedUserId());
-  //   // data.categories = await getUserInterests(getLoggedUserId());
-  //   setUserInfo(data);
-  // };
-
-  /* 관심분야 재설정 */
-  // const handleUpdateInterests = async () => {
-  //   const result = await setUserInterests(userInfo.categories);
-  //   if (result.message == 'success') {
-  //     // todo
-  //     alert('성공적으로 반영');
-  //   } else {
-  //     // todo
-  //     alert('오류가 발생했습니다. 잠시 후 시도해주세요 ');
-  //   }
-  // };
-
-  useEffect(() => {
-    // getAccountUserInfo();
-  }, []);
 
   return (
     <Box
@@ -119,14 +83,12 @@ export default function SettingsVerticalTab() {
           닉네임과 비밀번호를 수정가능합니다.
         </Typography>
         <ProfileInfoSettings />
-        {/* <CardProfile /> */}
       </TabPanel>
       <TabPanel value={value} index={1}>
         <Typography variant="h5">관심분야 설정</Typography>
         <Typography variant="caption" color="text.secondary" sx={{ pl: 0 }}>
           관심분야를 설정하고, 관련 투표들을 받아보세요! (최대 3개까지 지정가능)
         </Typography>
-        {/* <Divider sx={{ minWidth: '100%' }} /> */}
         <InterestsSettings />
       </TabPanel>
       <TabPanel value={value} index={2}>

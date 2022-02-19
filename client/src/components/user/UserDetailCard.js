@@ -1,12 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import profilePicture from '../../assets/images/profile.jpeg';
 import { Button, Card, Grid, Stack, Typography, Avatar, Container, Link } from '@mui/material';
-import styled from '@emotion/styled';
-import MobileHidden from '../common/MobileHidden';
-import { getuserInfo } from '../../services/api/ProfileApi';
-import { getLoggedUserId } from '../../utils/loggedUser';
-import { Link as RouterLink, useNavigate } from 'react-router-dom';
-import { getTotalUploadsCount, getTotalVotesCount } from '../../services/api/PollApi';
+import { Link as RouterLink } from 'react-router-dom';
 
 export default function UserDetailCard(props) {
   const { user } = props;
@@ -24,8 +17,7 @@ export default function UserDetailCard(props) {
               height: 'auto',
               justifyContent: 'center',
               alignItems: 'center',
-              position: 'relative'
-              
+              position: 'relative',
             }}
           >
             <Grid container spacing={1} justify="center" align="center">

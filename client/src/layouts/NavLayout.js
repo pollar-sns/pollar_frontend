@@ -1,12 +1,9 @@
 import { useState } from 'react';
 import { Outlet } from 'react-router-dom';
-// material
 import { styled } from '@mui/material/styles';
-//
 import Navbar from '../components/navbar/Navbar';
 import Footer from '../components/footer/Footer';
 import { Container } from '@mui/material';
-// import DashboardSidebar from './DashboardSidebar';
 
 // ----------------------------------------------------------------------
 
