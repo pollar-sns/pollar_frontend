@@ -19,11 +19,10 @@ instance.interceptors.request.use(
     const user = JSON.parse(localStorage.getItem('user'));
     // 토큰(JWT)이 존재하는 경우
     if (user && user.accessToken) {
-      // console.log('토큰 존재. Header에 jwt 담아서 보냅니다');
+      //// console.log('토큰 존재. Header에 jwt 담아서 보냅니다');
       // For Spring Boot back-end
       config.headers.Authorization = 'Bearer ' + user.accessToken;
     }
-    // console.log(config);
     return config;
   },
   (err) => {
@@ -42,6 +41,7 @@ instance.interceptors.response.use(
     const history = createBrowserHistory();
     if (error.response) {
       switch (error.response.status) {
+        /* 'JWT expired' exeption */
         case 401:
           console.log(error.response);
           //  1. Redirect user to LOGIN
@@ -57,6 +57,7 @@ instance.interceptors.response.use(
       }
     } else {
       // ex. 서버 키지 않은 경우
+      // todo
       console.log('서버 안킴', error);
       history.push('/error/500');
       window.location.reload();

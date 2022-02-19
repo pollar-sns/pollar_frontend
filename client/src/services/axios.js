@@ -1,5 +1,4 @@
 import axios from 'axios';
-//// import { logout } from './api/AuthApi';
 //// import authHeader from '../utils/authHeader';
 
 // axios 객체 생성

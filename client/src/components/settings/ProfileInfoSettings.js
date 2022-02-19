@@ -129,18 +129,14 @@ export default function ProfileInfoSettings() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     const updatedInfo = { ...user, userNickname: newNickname, password: newPassword };
-    console.log(updatedInfo);
+
     let result = await modifyUserPw(newPassword);
     if (result === 'success') result = await modifyUserInfo(updatedInfo);
-    // (await modifyUserPw(newPassword)) === 'success' &&
-    //   (await modifyUserInfo(updatedInfo)) === 'success';
 
     if (result === 'success') {
       setOpenSuccessAlert(true);
-      //// const updatedInfo = await getUserInfo(getLoggedUserId());
       const updatedInfo = getLoggedUserInfo();
       updatedInfo.userNickname = newNickname;
-      console.log(updatedInfo);
       setLoggedUserInfo(updatedInfo);
       // recoil로 사용자 정보 갱신 사실을 알림 -> Navbar에 변경사항 적용되게
       setIsUserInfoUpdated((curr) => !curr);
@@ -165,13 +161,9 @@ export default function ProfileInfoSettings() {
     getUserAccountInfo();
   }, []);
 
+  // 프로필사진 / 닉네임 / 비밀번호 2가지만 변경가능
   return (
     <Box mt={4}>
-      {/* 한주님 작업공간: 프로필사진 / 닉네임 / 비밀번호 2가지만 변경가능
-      <br /> - 비밀번호 확인 방식?
-      <br /> - 회원탈퇴 추가
-      <br /> - 아래코드 다 삭제하고 하시면 됩니다! (예전 회원가입코드에서 단순 복붙해온 것) */}
-      {/* 아이디, 닉네임, 사진, 이메일,  */}
       <Collapse in={openSuccessAlert}>
         <Alert
           severity="success"
@@ -230,7 +222,6 @@ export default function ProfileInfoSettings() {
                     }}
                     variant="standard"
                   />
-                  {/* </Stack> */}
                   <Stack direction={{ xs: 'column', sm: 'row' }} alignItems="center" spacing={2}>
                     <FormLabel id="gender-radio-group" sx={{ fontSize: 12 }}>
                       성별

@@ -13,7 +13,7 @@ import SelectInterests from './SelectInterests';
 import SignupForm from './SignupForm';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 
-import { Fragment, useEffect, useState } from 'react';
+import { Fragment, useState } from 'react';
 import { signup } from 'services/api/AuthApi';
 import ProfileImageUploadButton from 'components/common/ProfileImageUploadButton';
 
@@ -26,12 +26,6 @@ const SignupStepper = ({ activeStep }) => {
         {steps.map((label, index) => {
           const stepProps = {};
           const labelProps = {};
-          // if (isStepOptional(index)) {
-          //   labelProps.optional = <Typography variant="caption">Optional</Typography>;
-          // }
-          // if (isStepSkipped(index)) {
-          //   stepProps.completed = false;
-          // }
           return (
             <Step key={label} {...stepProps}>
               <StepLabel {...labelProps}>{label}</StepLabel>
@@ -49,7 +43,6 @@ export default function SignupWizard() {
 
   const navigate = useNavigate();
 
-  //// const [next, setNext] = useState(false);
   const [user, setUser] = useState({
     userId: '',
     password: '',
@@ -60,10 +53,6 @@ export default function SignupWizard() {
     categories: [],
     userProfilePhoto: '',
   });
-
-  const isStepOptional = (step) => {
-    return step === 1;
-  };
 
   const isStepSkipped = (step) => {
     return skipped.has(step);
@@ -77,10 +66,7 @@ export default function SignupWizard() {
     }
 
     // 회원가입 완료 버튼 클릭 (2단계: 관심분야 선택에서 회원가입 요청됨)
-    // if (activeStep === steps.length - 1) {
     if (activeStep === 1) {
-      console.log(user);
-      console.log('회원가입 요청 ');
       handleSignup();
     }
     // 이전 단계들
@@ -88,25 +74,6 @@ export default function SignupWizard() {
       setActiveStep((prevActiveStep) => prevActiveStep + 1);
       setSkipped(newSkipped);
     }
-  };
-
-  const handleBack = () => {
-    setActiveStep((prevActiveStep) => prevActiveStep - 1);
-  };
-
-  const handleSkip = () => {
-    if (!isStepOptional(activeStep)) {
-      // You probably want to guard against something like this,
-      // it should never occur unless someone's actively trying to break something.
-      throw new Error("You can't skip a step that isn't optional.");
-    }
-
-    setActiveStep((prevActiveStep) => prevActiveStep + 1);
-    setSkipped((prevSkipped) => {
-      const newSkipped = new Set(prevSkipped.values());
-      newSkipped.add(activeStep);
-      return newSkipped;
-    });
   };
 
   const handleSignup = async () => {
@@ -152,16 +119,6 @@ export default function SignupWizard() {
           </Box>
           <SignupStepper activeStep={activeStep} />
         </Stack>
-        {/* {activeStep === steps.length ? (
-          <Fragment>
-            <Typography sx={{ mt: 2, mb: 1 }}>환영합니다! 회원가입이 완료되었습니다</Typography>
-            <ImageUploadButton size={'20rem'} />
-            <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
-              <Box sx={{ flex: '1 1 auto' }} />
-              <Button onClick={handleNavigateLogin}>로그인하러 가기</Button>
-            </Box>
-          </Fragment>
-        ) : ( */}
         <Fragment>
           <Box sx={{ display: 'flex', justifyContent: 'center', width: '100%' }}>
             {activeStep === 0 ? (
@@ -183,7 +140,6 @@ export default function SignupWizard() {
                     pt: 2,
                   }}
                 >
-                  {/* <Box sx={{ flex: '1 1 auto' }} /> */}
                   <Button
                     onClick={handleNavigateLogin}
                     sx={{
@@ -200,24 +156,7 @@ export default function SignupWizard() {
               </Stack>
             )}
           </Box>
-
-          {/* <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
-              <Button color="inherit" disabled={activeStep < 2} onClick={handleBack} sx={{ mr: 1 }}>
-                뒤로
-              </Button>
-              <Box sx={{ flex: '1 1 auto' }} />
-              {isStepOptional(activeStep) && (
-                <Button color="inherit" onClick={handleSkip} sx={{ mr: 1 }}>
-                  나중에 하기
-                </Button>
-              )}
-
-              <Button onClick={handleNext}>
-                {activeStep === steps.length - 1 ? '회원가입 완료' : '확인'}
-              </Button>
-            </Box> */}
         </Fragment>
-        {/* )} */}
       </Card>
     </>
   );

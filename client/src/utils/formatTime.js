@@ -1,4 +1,4 @@
-import { compareAsc, format, formatDistanceToNow, formatDistanceToNowStrict } from 'date-fns';
+import { compareAsc, format, formatDistanceToNowStrict } from 'date-fns';
 import local from 'date-fns/locale/ko';
 // ----------------------------------------------------------------------
 
@@ -11,15 +11,12 @@ export function fDateTime(date) {
 }
 
 export function fDateTimeSuffix(date) {
-  // return format(new Date(date), 'dd/MM/yyyy hh:mm p');
+  //// return format(new Date(date), 'dd/MM/yyyy hh:mm p');
   return format(new Date(date), 'yyyy/MM/dd p');
 }
 
 export function fToNow(date) {
-  // return formatDistanceToNow(new Date(date), {
-  //   addSuffix: true,
-  // });
-
+  //// return formatDistanceToNow(new Date(date), { addSuffix: true, });
   return formatDistanceToNowStrict(new Date(date), { locale: local, addSuffix: true });
 }
 

@@ -235,7 +235,8 @@ function SignupForm(props) {
   const handleTokenSend = async (e) => {
     e.preventDefault();
     try {
-      console.log(tokenNumber);
+      //// 토큰 넘버 확인
+      // console.log(tokenNumber);
       const response = await emailToken(tokenNumber);
       if (response.message === 'success') {
         // 토큰이 T/F인지 확인

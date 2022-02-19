@@ -1,8 +1,7 @@
-import { Box, Container } from '@mui/material';
+import { Box } from '@mui/material';
 import SelectInterests from 'components/signup/SelectInterests';
 import { useEffect, useState } from 'react';
-import { setUserInterests } from 'services/api/CategoryApi';
-import { getUserInterests } from 'services/api/CategoryApi';
+import { setUserInterests, getUserInterests } from 'services/api/CategoryApi';
 import { getLoggedUserId } from 'utils/loggedUser';
 
 export default function InterestsSettings() {

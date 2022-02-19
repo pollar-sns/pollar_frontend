@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Box, Container, Typography, Card, Grid } from '@mui/material';
+import { Box, Typography, Card, Grid } from '@mui/material';
 import { checkUserLogged, getLoggedUserId } from '../utils/loggedUser';
 import { getAllUsers } from '../services/api/SearchApi';
 import UserDetailCard from '../components/user/UserDetailCard';
